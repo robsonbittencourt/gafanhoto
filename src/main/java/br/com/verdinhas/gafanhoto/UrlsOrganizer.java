@@ -4,13 +4,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import br.com.verdinhas.gafanhoto.redis.RedisSetService;
 
 @Component
-@Scope("prototype")
 public class UrlsOrganizer {
 
 	@Autowired
@@ -19,7 +18,10 @@ public class UrlsOrganizer {
 	@Autowired
 	private RedisSetService redisSetService;
 
+	@Scheduled(fixedDelay = 60000)
 	public Set<String> updateDataBaseWithNewUrls() {
+		System.out.println("Running");
+
 		List<String> actualUrls = gafanhoto.getActualUrls();
 
 		Set<String> newUrls = discoveryNewUrls(actualUrls);

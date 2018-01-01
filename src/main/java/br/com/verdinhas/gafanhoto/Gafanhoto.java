@@ -4,17 +4,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import br.com.verdinhas.gafanhoto.config.WebDriverWrapper;
+
 @Component
-@Scope("prototype")
 public class Gafanhoto {
 	
 	@Value("${forumUrl}")
@@ -27,12 +24,12 @@ public class Gafanhoto {
 	private String titleClass;
 
 	@Autowired
-	private WebDriver driver;
+	private WebDriverWrapper driver;
 
 	public List<String> getActualUrls() {
 		driver.get(forumUrl);
 		
-		waitingPageLoad();
+		driver.waitingPageLoad(By.id(mainClass));
 
 		List<WebElement> urlElements = driver.findElements(By.className(titleClass));
 		
@@ -41,11 +38,6 @@ public class Gafanhoto {
 		driver.quit();
 
 		return urls;
-	}
-
-	private void waitingPageLoad() {
-		WebDriverWait wait = new WebDriverWait(driver, 30);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(mainClass)));
 	}
 
 }
