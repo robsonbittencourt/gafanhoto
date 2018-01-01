@@ -10,7 +10,7 @@ jdk:
   - oraclejdk8
 
 script:
-  - mvn clean verify
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify -DskipITs=false
 
 cache:
   directories:

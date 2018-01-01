@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class GafanhotoTest {
+public class GafanhotoIT {
 
 	@Autowired
 	private Gafanhoto gafanhoto;
