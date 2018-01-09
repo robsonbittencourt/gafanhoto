@@ -2,12 +2,11 @@ language: java
 
 addons:
   sonarcloud:
-    organization: "robsonbittencourt-github"
+    organization: robsonbittencourt-github
     token:
-      secure: "H7WLY6wBgDLz5H2B6BoaZ9zDh5wDKhHQZko61fp4jkNATuWbTUghmf1r1SRcDeOErxj3zcMT8RAl5pr5Yfz6stEmQuSBxZX1B52ewWB58dRdzsKiN2hufpQBBahD9BUQo0kerHFedtmybaXjHgODGb2WJNJB5cpGUxLWH9pFonma0Ya7zMfCSmIE10zbZQoQ1UdwpNXKkQrUYE9JninGwj24vpGaI1V54o9HW+jL6qq/tcuJDIAUDldc/a4yR5luxNukqFQ6ysMSSC97ZfRDFKhNUAzkpBCOP7d0HWqYDfpmi3cwryqOJF3AnhlrYR5yS0U06V6z9xU3dD0l58lIu6SZdKY/w3hBQhfoLPfqXsSQqhIdZT8t3LxeAzcrS0BT1WxdZd/ONzyjBzY23Eju8MVbnylm0EG4wry2eqMoTLXXNaE56ilXGs7rHxDZ+K5jPiTR2Gix8jOK2K7n1VAFVakdywPoxAAiM8l+REwfrSGGxM+9326zdjPli37NXFurmCb3ClKERvgzFopEFtF+NAAfJEiYkcMmWbDvizCsg204BUqEfkQKoJ6UEV5SIUuV55vKPoI7xNvbmFSirCNsYD3rUc5x+2sZJQD/hyVJe0idAg8RVfxSsgKoc+xhoIsfTvBPGTGXZsxPUXLDAgtEilSqpiK6NQ3XOD7rTtxmZJ4="
+      secure: lUrnzKywEn9M40CewnCwtBkgBMw07sWorXtSio916iL0jvatCthPyLogTuY+7auuKZeAzsoABsMI/+qe2TfJio50/HpnF2DEL+x1U5TN2dZfx7QO2/vIN+/zNtBcLaX0cNP+KzE1oFwjY7oxC3G8wQM4te8GS/K2ePxJoK1ybVMt4SkaDTZAI5/r+cnygAinC5ReD7joicxne3U2U5ldLHz2GpOaWd0g2K7ETSs0JrdiAP+I/aXRnSi/1GoOhHJ/a6HKst53vl1sdF8Ocv1eH3Yp/oLuVwIBiny7QD3iPAR3P2NJF4aDFseRey2y2ATOCDgA1F6tevakXU8vM/uQf2IVx8I1kRrhfgGllG7talFzSjhemUBptIMMJp03F1uPMIp4/CtCwRUA4qm64WAYFA21fW2rQXgQ8V/u0svA2j7xBnT6STo2tYrD2iWIxgXjIkPlGDgCHzxqGWqkWvzS5e4di/khLFgEacMMQU/YDXCe2+B/pHXovNBdcPSroKJMLNk6fF9oun7AHbqQlqqrEQ47hGQ85beFA2cuYy34lUNRP/MFUDYLm94l17wREb8oFJce3c0bntSpKnlPfYlbiyfUlL3ypQpmDGJX6u+ZpfZdcFWooxbgibxwGmzgH9er2y9+EzlZxUMmaj9BQ/RC5fdR93l8jefxit4reVfuvlY=
     branches:
-      - master
-
+    - master
 jdk:
   - oraclejdk8
 
@@ -16,5 +15,5 @@ script:
 
 cache:
   directories:
-    - '$HOME/.m2/repository'
-    - '$HOME/.sonar/cache'
+    - "$HOME/.m2/repository"
+    - "$HOME/.sonar/cache"
