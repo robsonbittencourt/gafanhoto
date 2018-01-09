@@ -12,6 +12,9 @@ import br.com.verdinhas.gafanhoto.redis.RedisSetService;
 @Component
 public class UrlsOrganizer {
 
+	private static final String SET_URLS = "urls";
+	private static final String SET_ACTUAL_URLS = "actualUrls";
+
 	@Autowired
 	private Gafanhoto gafanhoto;
 
@@ -24,17 +27,17 @@ public class UrlsOrganizer {
 
 		Set<String> newUrls = discoveryNewUrls(actualUrls);
 
-		redisSetService.saveElements(actualUrls, "urls");
+		redisSetService.saveElements(actualUrls, SET_URLS);
 
 		return newUrls;
 	}
 
 	private Set<String> discoveryNewUrls(List<String> actualUrls) {
-		redisSetService.saveElements(actualUrls, "actualUrls");
+		redisSetService.saveElements(actualUrls, SET_ACTUAL_URLS);
 
-		Set<String> newUrls = redisSetService.getDifference("actualUrls", "urls");
+		Set<String> newUrls = redisSetService.getDifference(SET_ACTUAL_URLS, SET_URLS);
 
-		redisSetService.delete("actualUrls");
+		redisSetService.delete(SET_ACTUAL_URLS);
 
 		return newUrls;
 	}

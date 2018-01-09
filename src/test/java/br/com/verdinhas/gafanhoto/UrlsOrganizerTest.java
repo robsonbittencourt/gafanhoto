@@ -52,7 +52,7 @@ public class UrlsOrganizerTest {
 		verify(redisSetService).delete("actualUrls");
 		verify(redisSetService).saveElements(actualUrlsStub, "urls");
 
-		assertEquals(newUrls.size(), 1);
+		assertEquals(1, newUrls.size());
 		assertTrue(newUrls.contains("www.hardmob.com.br/promocoes/912"));
 	}
 
