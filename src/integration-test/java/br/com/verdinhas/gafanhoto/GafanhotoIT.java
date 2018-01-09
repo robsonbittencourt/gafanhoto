@@ -11,7 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import br.com.verdinhas.gafanhoto.redis.RedisSetService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -19,6 +22,9 @@ public class GafanhotoIT {
 
 	@Autowired
 	private Gafanhoto gafanhoto;
+
+	@MockBean
+	private RedisSetService redisSetService;
 
 	@Test
 	public void shouldReturnAll33TopicUrlsFromForum() {
@@ -33,6 +39,8 @@ public class GafanhotoIT {
 		Pattern pattern = Pattern.compile(regex);
 
 		List<String> actualUrls = gafanhoto.getActualUrls();
+
+		assertEquals(33, actualUrls.size());
 
 		for (String url : actualUrls) {
 			Matcher matcher = pattern.matcher(url);

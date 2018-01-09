@@ -1,43 +1,40 @@
 package br.com.verdinhas.gafanhoto;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toList;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import br.com.verdinhas.gafanhoto.config.WebDriverWrapper;
-
 @Component
 public class Gafanhoto {
-	
+
 	@Value("${forumUrl}")
 	private String forumUrl;
-
-	@Value("${elements.main}")
-	private String mainClass;
 
 	@Value("${elements.title}")
 	private String titleClass;
 
-	@Autowired
-	private WebDriverWrapper driver;
-
 	public List<String> getActualUrls() {
-		driver.get(forumUrl);
-		
-		driver.waitingPageLoad(By.id(mainClass));
+		try {
+			Document document = Jsoup.connect(forumUrl)
+					.userAgent(
+							"Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+					.get();
 
-		List<WebElement> urlElements = driver.findElements(By.className(titleClass));
-		
-		List<String> urls = urlElements.stream().map(url -> url.getAttribute("href")).collect(Collectors.toList());
+			Elements links = document.select("a." + titleClass);
 
-		driver.quit();
+			return links.stream().map(l -> l.attr("abs:href")).collect(toList());
+		} catch (Exception e) {
+			// TODO log
+			return new ArrayList<>();
+		}
 
-		return urls;
 	}
 
 }

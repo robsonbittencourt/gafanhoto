@@ -1,9 +1,6 @@
 language: java
 
-dist: trusty
-
 addons:
-  chrome: stable
   sonarcloud:
     organization: "robsonbittencourt-github"
     token:
@@ -11,14 +8,11 @@ addons:
     branches:
       - master
 
-before_install:
-      - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
-
 jdk:
   - oraclejdk8
 
 script:
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify -DskipITs=false
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify -DskipITs=false sonar:sonar
 
 cache:
   directories:

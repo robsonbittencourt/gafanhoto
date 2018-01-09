@@ -41,7 +41,7 @@ public class UrlsOrganizerTest {
 		actualUrlsStub.add("www.hardmob.com.br/promocoes/456");
 		actualUrlsStub.add("www.hardmob.com.br/promocoes/789");
 		when(gafanhoto.getActualUrls()).thenReturn(actualUrlsStub);
-		
+
 		Set<String> newUrlsStub = new HashSet<>();
 		newUrlsStub.add("www.hardmob.com.br/promocoes/912");
 		when(redisSetService.getDifference("actualUrls", "urls")).thenReturn(newUrlsStub);
@@ -51,7 +51,7 @@ public class UrlsOrganizerTest {
 		verify(redisSetService).saveElements(actualUrlsStub, "actualUrls");
 		verify(redisSetService).delete("actualUrls");
 		verify(redisSetService).saveElements(actualUrlsStub, "urls");
-		
+
 		assertEquals(newUrls.size(), 1);
 		assertTrue(newUrls.contains("www.hardmob.com.br/promocoes/912"));
 	}

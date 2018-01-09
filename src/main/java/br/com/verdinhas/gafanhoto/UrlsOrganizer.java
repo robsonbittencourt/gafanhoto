@@ -20,8 +20,6 @@ public class UrlsOrganizer {
 
 	@Scheduled(fixedDelay = 60000)
 	public Set<String> updateDataBaseWithNewUrls() {
-		System.out.println("Running");
-
 		List<String> actualUrls = gafanhoto.getActualUrls();
 
 		Set<String> newUrls = discoveryNewUrls(actualUrls);
