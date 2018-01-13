@@ -1,7 +1,5 @@
 package br.com.verdinhas.gafanhoto;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -16,6 +14,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import br.com.verdinhas.gafanhoto.alertas.CriadorDeAlertas;
 import br.com.verdinhas.gafanhoto.redis.RedisSetService;
 
 public class UrlsOrganizerTest {
@@ -28,6 +27,9 @@ public class UrlsOrganizerTest {
 
 	@Mock
 	private RedisSetService redisSetService;
+
+	@Mock
+	private CriadorDeAlertas verificadorAlertas;
 
 	@Before
 	public void setUp() {
@@ -46,14 +48,13 @@ public class UrlsOrganizerTest {
 		newUrlsStub.add("www.hardmob.com.br/promocoes/912");
 		when(redisSetService.getDifference("actualUrls", "urls")).thenReturn(newUrlsStub);
 
-		Set<String> newUrls = urlsOrganizer.updateDataBaseWithNewUrls();
+		urlsOrganizer.updateDataBaseWithNewUrls();
 
 		verify(redisSetService).saveElements(actualUrlsStub, "actualUrls");
 		verify(redisSetService).delete("actualUrls");
 		verify(redisSetService).saveElements(actualUrlsStub, "urls");
 
-		assertEquals(1, newUrls.size());
-		assertTrue(newUrls.contains("www.hardmob.com.br/promocoes/912"));
+		verify(verificadorAlertas).verificarAlertas("www.hardmob.com.br/promocoes/912");
 	}
 
 }

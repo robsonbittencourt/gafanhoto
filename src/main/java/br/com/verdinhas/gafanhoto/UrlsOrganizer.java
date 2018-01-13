@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import br.com.verdinhas.gafanhoto.alertas.CriadorDeAlertas;
 import br.com.verdinhas.gafanhoto.redis.RedisSetService;
 
 @Component
@@ -21,15 +22,20 @@ public class UrlsOrganizer {
 	@Autowired
 	private RedisSetService redisSetService;
 
+	@Autowired
+	private CriadorDeAlertas verificadorAlertas;
+
 	@Scheduled(fixedDelay = 60000)
-	public Set<String> updateDataBaseWithNewUrls() {
+	public void updateDataBaseWithNewUrls() {
 		List<String> actualUrls = gafanhoto.getActualUrls();
 
 		Set<String> newUrls = discoveryNewUrls(actualUrls);
 
 		redisSetService.saveElements(actualUrls, SET_URLS);
 
-		return newUrls;
+		for (String url : newUrls) {
+			verificadorAlertas.verificarAlertas(url);
+		}
 	}
 
 	private Set<String> discoveryNewUrls(List<String> actualUrls) {
