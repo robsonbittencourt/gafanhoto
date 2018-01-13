@@ -24,7 +24,7 @@ public class CriadorDeAlertas {
 	@Autowired
 	private AlertaRepository alertaRepository;
 
-	public void verificarAlertas(String url) {
+	public void criarAlertas(String url) {
 		List<Monitor> monitors = getMonitorsToUrl(url);
 
 		createAlertasToMonitors(url, monitors);

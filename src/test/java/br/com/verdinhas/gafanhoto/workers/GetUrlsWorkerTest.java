@@ -1,4 +1,4 @@
-package br.com.verdinhas.gafanhoto;
+package br.com.verdinhas.gafanhoto.workers;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -14,13 +14,15 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import br.com.verdinhas.gafanhoto.Gafanhoto;
 import br.com.verdinhas.gafanhoto.alertas.CriadorDeAlertas;
 import br.com.verdinhas.gafanhoto.redis.RedisSetService;
+import br.com.verdinhas.gafanhoto.workers.GetUrlsWorker;
 
-public class UrlsOrganizerTest {
+public class GetUrlsWorkerTest {
 
 	@InjectMocks
-	private UrlsOrganizer urlsOrganizer;
+	private GetUrlsWorker urlsOrganizer;
 
 	@Mock
 	private Gafanhoto gafanhoto;
@@ -54,7 +56,7 @@ public class UrlsOrganizerTest {
 		verify(redisSetService).delete("actualUrls");
 		verify(redisSetService).saveElements(actualUrlsStub, "urls");
 
-		verify(verificadorAlertas).verificarAlertas("www.hardmob.com.br/promocoes/912");
+		verify(verificadorAlertas).criarAlertas("www.hardmob.com.br/promocoes/912");
 	}
 
 }

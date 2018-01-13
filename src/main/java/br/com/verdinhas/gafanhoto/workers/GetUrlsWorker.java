@@ -1,4 +1,4 @@
-package br.com.verdinhas.gafanhoto;
+package br.com.verdinhas.gafanhoto.workers;
 
 import java.util.List;
 import java.util.Set;
@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import br.com.verdinhas.gafanhoto.Gafanhoto;
 import br.com.verdinhas.gafanhoto.alertas.CriadorDeAlertas;
 import br.com.verdinhas.gafanhoto.redis.RedisSetService;
 
 @Component
-public class UrlsOrganizer {
+public class GetUrlsWorker {
 
 	private static final String SET_URLS = "urls";
 	private static final String SET_ACTUAL_URLS = "actualUrls";
@@ -23,7 +24,7 @@ public class UrlsOrganizer {
 	private RedisSetService redisSetService;
 
 	@Autowired
-	private CriadorDeAlertas verificadorAlertas;
+	private CriadorDeAlertas criadorAlertas;
 
 	@Scheduled(fixedDelay = 60000)
 	public void updateDataBaseWithNewUrls() {
@@ -34,7 +35,7 @@ public class UrlsOrganizer {
 		redisSetService.saveElements(actualUrls, SET_URLS);
 
 		for (String url : newUrls) {
-			verificadorAlertas.verificarAlertas(url);
+			criadorAlertas.criarAlertas(url);
 		}
 	}
 
