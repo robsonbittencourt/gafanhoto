@@ -2,6 +2,7 @@ package br.com.verdinhas.gafanhoto.telegram;
 
 import static br.com.verdinhas.gafanhoto.util.Utils.addSeparators;
 import static java.lang.System.lineSeparator;
+import static java.util.Arrays.asList;
 import static org.telegram.abilitybots.api.objects.Locality.USER;
 import static org.telegram.abilitybots.api.objects.Privacy.PUBLIC;
 
@@ -25,6 +26,8 @@ import br.com.verdinhas.gafanhoto.monitor.MonitorRepository;
 
 @Component
 public class MonitorarCommand extends BaseBot {
+
+	private static final int MAX_MONITORS_BY_USER = 10;
 
 	@Autowired
 	private CriadorDeMonitor criadorDeMonitor;
@@ -58,11 +61,19 @@ public class MonitorarCommand extends BaseBot {
 					if (isValidArgumentsQuantity(ctx)) {
 						silent.send("Quantidade de palavras-chave inválida. Insira de 1 a 5 palavras-chave.",
 								ctx.chatId());
-					} else {
-						criadorDeMonitor.criar(ctx.user().id(), ctx.chatId(),
-								new ArrayList<>(Arrays.asList(ctx.arguments())));
-						silent.send(buildMonitorarFeedbackMessage(ctx), ctx.chatId());
+						return;
 					}
+
+					List<Monitor> userMonitors = monitorRepository.findByUserId(ctx.user().id());
+					if (CollectionUtils.isNotEmpty(userMonitors) && userMonitors.size() == MAX_MONITORS_BY_USER) {
+						silent.send(
+								"Você quer boletar muitas coisas hein. Já existem 10 monitores cadastrados. Apague algum para cadastrar um novo.",
+								ctx.chatId());
+						return;
+					}
+
+					criadorDeMonitor.criar(ctx.user().id(), ctx.chatId(), new ArrayList<>(asList(ctx.arguments())));
+					silent.send(buildMonitorarFeedbackMessage(ctx), ctx.chatId());
 				}).build();
 	}
 
