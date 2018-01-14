@@ -1,5 +1,7 @@
 package br.com.verdinhas.gafanhoto.workers;
 
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -9,19 +11,17 @@ import org.springframework.stereotype.Component;
 
 import br.com.verdinhas.gafanhoto.Gafanhoto;
 import br.com.verdinhas.gafanhoto.alertas.CriadorDeAlertas;
-import br.com.verdinhas.gafanhoto.redis.RedisSetService;
+import br.com.verdinhas.gafanhoto.urls.Url;
+import br.com.verdinhas.gafanhoto.urls.UrlsRepository;
 
 @Component
 public class GetUrlsWorker {
-
-	private static final String SET_URLS = "urls";
-	private static final String SET_ACTUAL_URLS = "actualUrls";
 
 	@Autowired
 	private Gafanhoto gafanhoto;
 
 	@Autowired
-	private RedisSetService redisSetService;
+	private UrlsRepository urlsRepository;
 
 	@Autowired
 	private CriadorDeAlertas criadorAlertas;
@@ -32,19 +32,24 @@ public class GetUrlsWorker {
 
 		Set<String> newUrls = discoveryNewUrls(actualUrls);
 
-		redisSetService.saveElements(actualUrls, SET_URLS);
-
 		for (String url : newUrls) {
 			criadorAlertas.criarAlertas(url);
 		}
 	}
 
 	private Set<String> discoveryNewUrls(List<String> actualUrls) {
-		redisSetService.saveElements(actualUrls, SET_ACTUAL_URLS);
+		Set<String> newUrls = new HashSet<>();
+		Set<Url> databaseUrls = new HashSet<Url>(urlsRepository.findAll());
 
-		Set<String> newUrls = redisSetService.getDifference(SET_ACTUAL_URLS, SET_URLS);
+		for (String url : actualUrls) {
+			Url newUrl = new Url(url, new Date());
 
-		redisSetService.delete(SET_ACTUAL_URLS);
+			if (databaseUrls.add(newUrl)) {
+				System.out.println("Salvando url " + url);
+				urlsRepository.save(newUrl);
+				newUrls.add(url);
+			}
+		}
 
 		return newUrls;
 	}
