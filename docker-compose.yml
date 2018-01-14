@@ -1,0 +1,13 @@
+gafanhoto:
+  image: robsonbittencourt/gafanhoto
+  links:
+    - mongodb
+  environment:
+    SPRING_DATA_MONGODB_URI: mongodb://mongodb/userregistration
+    TELEGRAM_USER_ID: 
+    GAFANHOTO_TOKEN:
+
+mongodb:
+  image: mongo:3.6.1
+  ports:
+    - "27017:27017"
