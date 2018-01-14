@@ -32,7 +32,7 @@ public class CriadorDeAlertas {
 
 	private void createAlertasToMonitors(String url, List<Monitor> monitors) {
 		for (Monitor monitor : monitors) {
-			alertaRepository.save(new Alerta(monitor.getUserId(), url));
+			alertaRepository.save(new Alerta(monitor.getUserId(), monitor.getChatId(), url));
 		}
 	}
 
