@@ -3,9 +3,12 @@ package br.com.verdinhas.gafanhoto.monitor;
 import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.StringUtils.stripAccents;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+
+import br.com.verdinhas.gafanhoto.util.Utils;
 
 public class Monitor {
 
@@ -46,6 +49,15 @@ public class Monitor {
 
 	public List<String> getOtherKeyWords() {
 		return otherKeyWords;
+	}
+
+	public String getKeyWordsWithSeparator() {
+		List<String> keywords = new ArrayList<>();
+
+		keywords.add(mainKeyWord);
+		keywords.addAll(otherKeyWords);
+
+		return Utils.addSeparators(keywords);
 	}
 
 }

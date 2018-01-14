@@ -8,4 +8,6 @@ public interface MonitorRepository extends MongoRepository<Monitor, String> {
 
 	public List<Monitor> findByMainKeyWord(String mainKeyWord);
 
+	public List<Monitor> findByUserId(int userId);
+
 }
