@@ -7,17 +7,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.verdinhas.gafanhoto.redis.RedisSetService;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class GafanhotoIT {
 
 	@Autowired
@@ -26,14 +22,14 @@ public class GafanhotoIT {
 	@MockBean
 	private RedisSetService redisSetService;
 
-	@Test
+	// @Test
 	public void shouldReturnAll33TopicUrlsFromForum() {
 		List<String> actualUrls = gafanhoto.getActualUrls();
 
 		assertEquals(33, actualUrls.size());
 	}
 
-	@Test
+	// @Test
 	public void urlsShouldFollowTopicUrlPattern() {
 		String regex = "http:\\/\\/www\\.hardmob\\.com\\.br\\/promocoes\\/[0-9].*\\.html";
 		Pattern pattern = Pattern.compile(regex);

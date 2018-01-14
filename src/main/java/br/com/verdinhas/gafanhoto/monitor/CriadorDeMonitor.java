@@ -11,7 +11,10 @@ public class CriadorDeMonitor {
 	@Autowired
 	private MonitorRepository repository;
 
-	public void criar(String userId, String mainKeyWord, List<String> keyWords) {
+	public void criar(int userId, List<String> keyWords) {
+		String mainKeyWord = keyWords.get(0);
+		keyWords.remove(0);
+
 		repository.save(new Monitor(userId, mainKeyWord, keyWords));
 	}
 

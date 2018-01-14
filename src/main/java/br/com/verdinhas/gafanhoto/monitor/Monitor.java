@@ -9,11 +9,11 @@ public class Monitor {
 	@Id
 	public String id;
 
-	private String userId;
+	private int userId;
 	private String mainKeyWord;
 	private List<String> otherKeyWords;
 
-	public Monitor(String userId, String mainKeyWord, List<String> otherKeyWords) {
+	public Monitor(int userId, String mainKeyWord, List<String> otherKeyWords) {
 		this.userId = userId;
 		this.mainKeyWord = mainKeyWord;
 		this.otherKeyWords = otherKeyWords;
@@ -23,7 +23,7 @@ public class Monitor {
 		return id;
 	}
 
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 

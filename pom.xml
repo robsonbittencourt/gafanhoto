@@ -66,6 +66,22 @@
 			<version>4.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.telegram</groupId>
+			<artifactId>telegrambots</artifactId>
+			<version>3.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.telegram</groupId>
+			<artifactId>telegrambots-abilities</artifactId>
+			<version>3.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>

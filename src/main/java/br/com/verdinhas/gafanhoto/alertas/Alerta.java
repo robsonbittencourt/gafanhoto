@@ -7,10 +7,10 @@ public class Alerta {
 	@Id
 	public String id;
 
-	private String userId;
+	private int userId;
 	private String url;
 
-	public Alerta(String userId, String url) {
+	public Alerta(int userId, String url) {
 		this.userId = userId;
 		this.url = url;
 	}
@@ -19,17 +19,12 @@ public class Alerta {
 		return id;
 	}
 
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
 	public String getUrl() {
 		return url;
-	}
-
-	@Override
-	public String toString() {
-		return "Alerta [id=" + id + ", userId=" + userId + ", url=" + url + "]";
 	}
 
 }
