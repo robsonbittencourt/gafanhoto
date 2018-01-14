@@ -76,7 +76,7 @@ public class MonitorarCommand extends BaseBot {
 					List<Monitor> userMonitors = monitorRepository.findByUserId(ctx.user().id());
 
 					if (CollectionUtils.isEmpty(userMonitors)) {
-						silent.send("Você aind não possui monitores", ctx.chatId());
+						silent.send("Você ainda não possui monitores", ctx.chatId());
 						return;
 					}
 
@@ -90,6 +90,36 @@ public class MonitorarCommand extends BaseBot {
 					for (Monitor monitor : userMonitors) {
 						rowInline.add(new InlineKeyboardButton().setText(monitor.getKeyWordsWithSeparator())
 								.setCallbackData("apagar-" + monitor.id));
+					}
+
+					rowsInline.add(rowInline);
+					markupInline.setKeyboard(rowsInline);
+					message.setReplyMarkup(markupInline);
+
+					silent.execute(message);
+				}).build();
+	}
+
+	public Ability listarMonitores() {
+		return Ability.builder().name("listarMonitores").info("Lista todos os seus monitores").locality(USER)
+				.privacy(PUBLIC).action(ctx -> {
+					List<Monitor> userMonitors = monitorRepository.findByUserId(ctx.user().id());
+
+					if (CollectionUtils.isEmpty(userMonitors)) {
+						silent.send("Você ainda não possui monitores", ctx.chatId());
+						return;
+					}
+
+					SendMessage message = new SendMessage().setChatId(ctx.chatId())
+							.setText("Os seus monitores atuais são");
+
+					InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+					List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+					List<InlineKeyboardButton> rowInline = new ArrayList<>();
+
+					for (Monitor monitor : userMonitors) {
+						rowInline.add(new InlineKeyboardButton().setText(monitor.getKeyWordsWithSeparator())
+								.setCallbackData("without-callback"));
 					}
 
 					rowsInline.add(rowInline);
