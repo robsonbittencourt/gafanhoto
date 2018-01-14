@@ -96,14 +96,16 @@ public class MonitorarCommand extends BaseBot {
 
 					InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
 					List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
-					List<InlineKeyboardButton> rowInline = new ArrayList<>();
 
 					for (Monitor monitor : userMonitors) {
+						List<InlineKeyboardButton> rowInline = new ArrayList<>();
+
 						rowInline.add(new InlineKeyboardButton().setText(monitor.getKeyWordsWithSeparator())
 								.setCallbackData("apagar-" + monitor.id));
+
+						rowsInline.add(rowInline);
 					}
 
-					rowsInline.add(rowInline);
 					markupInline.setKeyboard(rowsInline);
 					message.setReplyMarkup(markupInline);
 
@@ -121,23 +123,12 @@ public class MonitorarCommand extends BaseBot {
 						return;
 					}
 
-					SendMessage message = new SendMessage().setChatId(ctx.chatId())
-							.setText("Os seus monitores atuais são");
-
-					InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
-					List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
-					List<InlineKeyboardButton> rowInline = new ArrayList<>();
-
+					StringBuilder sb = new StringBuilder();
 					for (Monitor monitor : userMonitors) {
-						rowInline.add(new InlineKeyboardButton().setText(monitor.getKeyWordsWithSeparator())
-								.setCallbackData("without-callback"));
+						sb.append("* " + monitor.getKeyWordsWithSeparator()).append(System.lineSeparator());
 					}
 
-					rowsInline.add(rowInline);
-					markupInline.setKeyboard(rowsInline);
-					message.setReplyMarkup(markupInline);
-
-					silent.execute(message);
+					silent.send(sb.toString(), ctx.chatId());
 				}).build();
 	}
 
