@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.abilitybots.api.objects.Ability;
 import org.telegram.abilitybots.api.objects.MessageContext;
+import org.telegram.abilitybots.api.sender.SilentSender;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -52,6 +53,36 @@ public class MonitorarCommand extends BaseBot {
 			String monitorId = callData.substring(callData.indexOf("-") + 1, callData.length());
 			monitorRepository.delete(monitorId);
 			silent.send("Monitor apagado. Você não vai mais receber avisos destas palavras-chave.", chatId);
+		}
+	}
+
+	public Ability start() {
+		return Ability.builder().name("start").info("Inicia o bot com a mensagem de boas vindas").locality(USER)
+				.privacy(PUBLIC).action(ctx -> {
+					List<String> messages = new ArrayList<>();
+					messages.add("Olá jovem gafanhoto.");
+					messages.add("Apartir de agora, vou poupar você de ficar frenéticamente atrás de promoções.");
+					messages.add(
+							"Posso te avisar quando novas promoções surgirem, para isso você pode me pedir para monitorar certas palavras-chave para você.");
+					messages.add(
+							"Para fazer isso digite o comando /monitorar e informe até 5 palavras-chave como por exemplo: TV Samsung LED");
+					messages.add(
+							"Escolha as palavras com cuidado, pois só vou te mostrar caso todas elas apareçam no link da promoção.");
+					messages.add("Quando mais palavras, mais específica será a busca.");
+					messages.add("Para listar todos os comandos disponíveis digite /commands que te mostro.");
+
+					sendConversation(messages, silent, ctx.chatId());
+				}).build();
+	}
+
+	private void sendConversation(List<String> messages, SilentSender silent, long chatId) {
+		for (String message : messages) {
+			silent.send(message, chatId);
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
