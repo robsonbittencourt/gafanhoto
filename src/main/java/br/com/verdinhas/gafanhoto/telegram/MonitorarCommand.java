@@ -131,7 +131,7 @@ public class MonitorarCommand extends BaseBot {
 					for (Monitor monitor : userMonitors) {
 						List<InlineKeyboardButton> rowInline = new ArrayList<>();
 
-						rowInline.add(new InlineKeyboardButton().setText(monitor.getKeyWordsWithSeparator())
+						rowInline.add(new InlineKeyboardButton().setText(monitor.toString())
 								.setCallbackData("apagar-" + monitor.id));
 
 						rowsInline.add(rowInline);
@@ -156,7 +156,7 @@ public class MonitorarCommand extends BaseBot {
 
 					StringBuilder sb = new StringBuilder();
 					for (Monitor monitor : userMonitors) {
-						sb.append("* " + monitor.getKeyWordsWithSeparator()).append(System.lineSeparator());
+						sb.append("* " + monitor.toString()).append(System.lineSeparator());
 					}
 
 					silent.send(sb.toString(), ctx.chatId());

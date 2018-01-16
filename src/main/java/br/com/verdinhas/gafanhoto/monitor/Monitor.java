@@ -50,8 +50,9 @@ public class Monitor {
 	public List<String> getOtherKeyWords() {
 		return otherKeyWords;
 	}
-
-	public String getKeyWordsWithSeparator() {
+	
+	@Override
+	public String toString() {
 		List<String> keywords = new ArrayList<>();
 
 		keywords.add(mainKeyWord);
