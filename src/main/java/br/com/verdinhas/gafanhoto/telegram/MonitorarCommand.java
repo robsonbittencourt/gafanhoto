@@ -76,14 +76,18 @@ public class MonitorarCommand extends BaseBot {
 	}
 
 	private void sendConversation(List<String> messages, SilentSender silent, long chatId) {
-		for (String message : messages) {
-			silent.send(message, chatId);
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		Runnable task = () -> {
+			for (String message : messages) {
+				silent.send(message, chatId);
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
-		}
+		};
+
+		new Thread(task).start();
 	}
 
 	public Ability monitorar() {
