@@ -11,3 +11,5 @@ mongodb:
   image: mongo:3.6.1
   ports:
     - "27017:27017"
+  volumes:
+    - ~/gafanhoto-data:/data/db
