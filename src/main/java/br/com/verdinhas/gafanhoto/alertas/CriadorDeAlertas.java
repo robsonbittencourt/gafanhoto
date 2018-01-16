@@ -1,5 +1,7 @@
 package br.com.verdinhas.gafanhoto.alertas;
 
+import static br.com.verdinhas.gafanhoto.util.Utils.distinctByKey;
+import static java.util.stream.Collectors.toList;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
 import java.util.ArrayList;
@@ -43,10 +45,10 @@ public class CriadorDeAlertas {
 		for (String keyWord : keyWords) {
 			monitors.addAll(filterMonitorsByKeyWords(keyWords, keyWord));
 		}
-
-		return monitors;
+		
+		return monitors.stream().filter(distinctByKey(Monitor::getChatId)).collect(toList());
 	}
-
+	
 	private List<Monitor> filterMonitorsByKeyWords(List<String> keyWords, String keyWord) {
 		List<Monitor> filteredMonitors = new ArrayList<>();
 		List<Monitor> monitorsWithMainKey = monitorRepository.findByMainKeyWord(keyWord);

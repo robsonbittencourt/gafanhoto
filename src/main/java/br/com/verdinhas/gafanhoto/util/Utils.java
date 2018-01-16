@@ -1,6 +1,10 @@
 package br.com.verdinhas.gafanhoto.util;
 
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Utils {
 
@@ -15,6 +19,11 @@ public class Utils {
 		String withoutLastSeparator = withSeparators.substring(0, withSeparators.length() - 2);
 
 		return withoutLastSeparator;
+	}
+	
+	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+	    Set<Object> seen = ConcurrentHashMap.newKeySet();
+	    return t -> seen.add(keyExtractor.apply(t));
 	}
 
 }
