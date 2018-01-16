@@ -51,8 +51,13 @@ public class MonitorarCommand extends BaseBot {
 
 		if (callData.startsWith("apagar")) {
 			String monitorId = callData.substring(callData.indexOf("-") + 1, callData.length());
-			monitorRepository.delete(monitorId);
-			silent.send("Monitor apagado. Você não vai mais receber avisos destas palavras-chave.", chatId);
+
+			if (monitorRepository.exists(monitorId)) {
+				monitorRepository.delete(monitorId);
+				silent.send("Monitor apagado. Você não vai mais receber avisos destas palavras-chave.", chatId);
+			} else {
+				silent.send("Monitor não encontrado;", chatId);
+			}
 		}
 	}
 
