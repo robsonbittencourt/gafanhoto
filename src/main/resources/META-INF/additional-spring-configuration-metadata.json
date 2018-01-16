@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "user-agent",
+    "type": "java.lang.String",
+    "description": "User agent to simulate browser request"
+  },
+  {
+    "name": "sources.hardmob.url",
+    "type": "java.lang.String",
+    "description": "Hardmob forum url"
+  },
+  {
+    "name": "sources.hardmob.elements.title",
+    "type": "java.lang.String",
+    "description": "Class used to identify links to topics"
+  }
+]}

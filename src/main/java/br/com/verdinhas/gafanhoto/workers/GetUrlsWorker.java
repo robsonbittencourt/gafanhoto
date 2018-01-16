@@ -9,16 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import br.com.verdinhas.gafanhoto.Gafanhoto;
 import br.com.verdinhas.gafanhoto.alertas.CriadorDeAlertas;
 import br.com.verdinhas.gafanhoto.urls.Url;
 import br.com.verdinhas.gafanhoto.urls.UrlsRepository;
+import br.com.verdinhas.gafanhoto.webcrawler.HardmobPromocoesWebCrawler;
 
 @Component
 public class GetUrlsWorker {
 
 	@Autowired
-	private Gafanhoto gafanhoto;
+	private HardmobPromocoesWebCrawler gafanhoto;
 
 	@Autowired
 	private UrlsRepository urlsRepository;
@@ -28,7 +28,7 @@ public class GetUrlsWorker {
 
 	@Scheduled(fixedDelay = 60000)
 	public void updateDataBaseWithNewUrls() {
-		List<String> actualUrls = gafanhoto.getActualUrls();
+		List<String> actualUrls = gafanhoto.retrieveUrlsFromSource();
 
 		Set<String> newUrls = discoveryNewUrls(actualUrls);
 

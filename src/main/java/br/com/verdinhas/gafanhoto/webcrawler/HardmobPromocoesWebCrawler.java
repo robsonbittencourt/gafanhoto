@@ -1,4 +1,4 @@
-package br.com.verdinhas.gafanhoto;
+package br.com.verdinhas.gafanhoto.webcrawler;
 
 import static java.util.stream.Collectors.toList;
 
@@ -12,20 +12,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Gafanhoto {
+public class HardmobPromocoesWebCrawler implements UrlCrawler {
 
-	@Value("${forumUrl}")
+	@Value("${userAgent}")
+	private String userAgent;
+
+	@Value("${sources.hardmob.url}")
 	private String forumUrl;
 
-	@Value("${elements.title}")
+	@Value("${sources.hardmob.elements.title}")
 	private String titleClass;
 
-	public List<String> getActualUrls() {
+	public List<String> retrieveUrlsFromSource() {
 		try {
-			Document document = Jsoup.connect(forumUrl)
-					.userAgent(
-							"Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
-					.get();
+			Document document = Jsoup.connect(forumUrl).userAgent(userAgent).get();
 
 			Elements links = document.select("a." + titleClass);
 
