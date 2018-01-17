@@ -1,14 +1,13 @@
 package br.com.verdinhas.gafanhoto.monitor;
 
+import static br.com.verdinhas.gafanhoto.util.Utils.addSeparators;
+import static br.com.verdinhas.gafanhoto.util.Utils.normalizeString;
 import static java.util.stream.Collectors.toList;
-import static org.apache.commons.lang3.StringUtils.stripAccents;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-
-import br.com.verdinhas.gafanhoto.util.Utils;
 
 public class Monitor {
 
@@ -25,10 +24,6 @@ public class Monitor {
 		this.chatId = chatId;
 		this.mainKeyWord = normalizeString(mainKeyWord);
 		this.otherKeyWords = otherKeyWords.stream().map(k -> normalizeString(k)).collect(toList());
-	}
-
-	private String normalizeString(String string) {
-		return stripAccents(string.toLowerCase());
 	}
 
 	public String getId() {
@@ -50,7 +45,7 @@ public class Monitor {
 	public List<String> getOtherKeyWords() {
 		return otherKeyWords;
 	}
-	
+
 	@Override
 	public String toString() {
 		List<String> keywords = new ArrayList<>();
@@ -58,7 +53,7 @@ public class Monitor {
 		keywords.add(mainKeyWord);
 		keywords.addAll(otherKeyWords);
 
-		return Utils.addSeparators(keywords);
+		return addSeparators(keywords);
 	}
 
 }

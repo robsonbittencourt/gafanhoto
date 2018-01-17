@@ -1,5 +1,6 @@
 package br.com.verdinhas.gafanhoto.webcrawler;
 
+import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
@@ -23,18 +24,36 @@ public class HardmobPromocoesWebCrawler implements UrlCrawler {
 	@Value("${sources.hardmob.elements.title}")
 	private String titleClass;
 
+	@Override
 	public List<String> retrieveUrlsFromSource() {
 		try {
-			Document document = Jsoup.connect(forumUrl).userAgent(userAgent).get();
+			Document document = Jsoup.connect(forumUrl)
+					.userAgent(userAgent)
+					.get();
 
 			Elements links = document.select("a." + titleClass);
 
-			return links.stream().map(l -> l.attr("abs:href")).collect(toList());
+			return links.stream()
+					.map(l -> l.attr("abs:href"))
+					.collect(toList());
 		} catch (Exception e) {
 			// TODO log
 			return new ArrayList<>();
 		}
 
+	}
+
+	@Override
+	public List<String> decompose(String url) {
+		String withoutPrefixAndSufix = url.substring(url.indexOf("-") + 1, url.indexOf(".html"));
+
+		List<String> wordsWithSeparator = asList(withoutPrefixAndSufix.split("-"));
+
+		List<String> words = wordsWithSeparator.stream()
+				.filter(w -> w.length() > 1)
+				.collect(toList());
+
+		return words;
 	}
 
 }

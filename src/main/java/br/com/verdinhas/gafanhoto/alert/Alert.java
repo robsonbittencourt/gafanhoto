@@ -1,8 +1,8 @@
-package br.com.verdinhas.gafanhoto.alertas;
+package br.com.verdinhas.gafanhoto.alert;
 
 import org.springframework.data.annotation.Id;
 
-public class Alerta {
+public class Alert {
 
 	@Id
 	public String id;
@@ -11,7 +11,7 @@ public class Alerta {
 	private long chatId;
 	private String url;
 
-	public Alerta(int userId, long chatId, String url) {
+	public Alert(int userId, long chatId, String url) {
 		this.userId = userId;
 		this.chatId = chatId;
 		this.url = url;

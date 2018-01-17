@@ -1,6 +1,7 @@
-package br.com.verdinhas.gafanhoto.urls;
+package br.com.verdinhas.gafanhoto.url;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
@@ -11,10 +12,13 @@ public class Url {
 
 	private String url;
 
+	private List<String> urlWords;
+
 	private Date date;
 
-	public Url(String url, Date date) {
+	public Url(String url, List<String> urlWords, Date date) {
 		this.url = url;
+		this.urlWords = urlWords;
 		this.date = date;
 	}
 
@@ -24,6 +28,10 @@ public class Url {
 
 	public String getUrl() {
 		return url;
+	}
+
+	public List<String> getUrlWords() {
+		return urlWords;
 	}
 
 	public Date getDate() {
