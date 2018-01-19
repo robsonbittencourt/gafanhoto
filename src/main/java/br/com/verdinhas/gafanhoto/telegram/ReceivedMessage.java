@@ -10,7 +10,7 @@ import org.telegram.telegrambots.api.objects.Update;
 public class ReceivedMessage {
 
 	private Update update;
-	private List<String> arguments;
+	private List<String> words;
 
 	public ReceivedMessage(Update update) {
 		this.update = update;
@@ -48,14 +48,13 @@ public class ReceivedMessage {
 		return update.getMessage().getChatId();
 	}
 
-	public List<String> arguments() {
-		if (this.arguments == null) {
+	public List<String> splitMessage() {
+		if (this.words == null) {
 			List<String> arguments = new ArrayList<>(asList(text().split(" ")));
-			arguments.remove(0);
-			this.arguments = arguments;
+			this.words = arguments;
 		}
 
-		return arguments;
+		return words;
 	}
 
 }

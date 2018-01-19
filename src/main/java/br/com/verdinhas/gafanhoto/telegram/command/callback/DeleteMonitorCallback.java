@@ -14,6 +14,11 @@ public class DeleteMonitorCallback implements BotCallback {
 	private MonitorRepository monitorRepository;
 
 	@Override
+	public String prefixIdentifier() {
+		return "delete";
+	}
+
+	@Override
 	public void callback(GafanhotoBot bot, ReceivedMessage message) {
 		String callbackData = message.callbackText();
 
@@ -28,11 +33,6 @@ public class DeleteMonitorCallback implements BotCallback {
 				bot.sendMessage(message.chatId(), "Monitor não encontrado.");
 			}
 		}
-	}
-
-	@Override
-	public String prefixIdentifier() {
-		return "delete";
 	}
 
 }

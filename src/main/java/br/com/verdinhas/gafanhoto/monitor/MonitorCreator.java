@@ -1,5 +1,7 @@
 package br.com.verdinhas.gafanhoto.monitor;
 
+import static java.util.Arrays.asList;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +17,12 @@ public class MonitorCreator {
 	private MonitorRepository monitorRepository;
 
 	public void create(ReceivedMessage message) {
-		List<String> arguments = new ArrayList<>(message.arguments());
-		String mainKeyWord = arguments.get(0);
-		arguments.remove(0);
+		List<String> words = new ArrayList<>(asList(message.text().split(" ")));
 
-		monitorRepository.save(new Monitor(message.userId(), message.chatId(), mainKeyWord, arguments));
+		String mainKeyWord = words.get(0);
+		List<String> otherKeyWords = words.subList(1, words.size());
+
+		monitorRepository.save(new Monitor(message.userId(), message.chatId(), mainKeyWord, otherKeyWords));
 	}
 
 }

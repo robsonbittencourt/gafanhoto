@@ -31,17 +31,6 @@ public class MonitorValidator {
 		return false;
 	}
 
-	public boolean isInvalidArgumentsQuantity(ReceivedMessage message, GafanhotoBot bot) {
-		List<String> arguments = message.arguments();
-
-		if (arguments.size() == 0 || arguments.size() > 5) {
-			bot.sendMessage(message.chatId(), "Quantidade de palavras-chave inválida. Insira de 1 a 5 palavras-chave.");
-			return true;
-		}
-
-		return false;
-	}
-
 	public boolean thereAreNoMonitors(GafanhotoBot bot, ReceivedMessage message, List<Monitor> userMonitors) {
 		if (isEmpty(userMonitors)) {
 			bot.sendMessage(message.chatId(), "Você ainda não possui monitores.");

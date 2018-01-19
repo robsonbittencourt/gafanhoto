@@ -3,7 +3,9 @@ package br.com.verdinhas.gafanhoto.telegram;
 import static java.util.Arrays.asList;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,7 @@ import br.com.verdinhas.gafanhoto.telegram.command.MonitorCommand;
 import br.com.verdinhas.gafanhoto.telegram.command.StartCommand;
 import br.com.verdinhas.gafanhoto.telegram.command.callback.BotCallback;
 import br.com.verdinhas.gafanhoto.telegram.command.callback.DeleteMonitorCallback;
+import br.com.verdinhas.gafanhoto.telegram.command.callback.MonitorCallback;
 
 @Component
 public class GafanhotoBot extends TelegramLongPollingBot {
@@ -39,13 +42,17 @@ public class GafanhotoBot extends TelegramLongPollingBot {
 	@Autowired
 	private DeleteMonitorCallback deleteMonitorCallback;
 
+	@Autowired
+	private MonitorCallback monitorCallback;
+
+	private Map<Long, String> usersWaitingCallback = new HashMap<>();
+
 	@Override
 	public void onUpdateReceived(Update update) {
 		ReceivedMessage message = new ReceivedMessage(update);
 
-		if (message.hasCallbackQuery()) {
-			getCallbacks().stream().filter(c -> message.callbackText().startsWith(c.prefixIdentifier())).findFirst()
-					.ifPresent(c -> c.callback(this, message));
+		if (verifyCallbacks(message)) {
+			return;
 		}
 
 		if (message.hasText()) {
@@ -54,12 +61,34 @@ public class GafanhotoBot extends TelegramLongPollingBot {
 		}
 	}
 
-	private List<BotCommand> getCommands() {
-		return asList(startCommand, monitorCommand, deleteMonitorCommand, listMonitorsCommand);
+	private boolean verifyCallbacks(ReceivedMessage message) {
+		if (message.hasCallbackQuery()) {
+			getCallbacks().stream().filter(c -> message.callbackText().startsWith(c.prefixIdentifier())).findFirst()
+					.ifPresent(c -> c.callback(this, message));
+
+			return true;
+		}
+
+		String callbackIdentifier = usersWaitingCallback.get(message.chatId());
+		if (callbackIdentifier != null) {
+			usersWaitingCallback.remove(message.chatId());
+
+			getCallbacks().stream()
+					.filter(c -> callbackIdentifier.startsWith(c.prefixIdentifier()))
+					.findFirst().ifPresent(c -> c.callback(this, message));
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private List<BotCallback> getCallbacks() {
-		return asList(deleteMonitorCallback);
+		return asList(deleteMonitorCallback, monitorCallback);
+	}
+
+	private List<BotCommand> getCommands() {
+		return asList(startCommand, monitorCommand, deleteMonitorCommand, listMonitorsCommand);
 	}
 
 	@Override
@@ -80,6 +109,12 @@ public class GafanhotoBot extends TelegramLongPollingBot {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void sendMessageWithCallback(Long chatId, String message, String callbackIdentifier) {
+		usersWaitingCallback.put(chatId, callbackIdentifier);
+
+		sendMessage(chatId, message);
 	}
 
 	public void sendConversation(Long chatId, List<String> messages) {
