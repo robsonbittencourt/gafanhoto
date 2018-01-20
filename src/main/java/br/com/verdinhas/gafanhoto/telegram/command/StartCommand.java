@@ -1,5 +1,7 @@
 package br.com.verdinhas.gafanhoto.telegram.command;
 
+import static br.com.verdinhas.gafanhoto.util.Utils.sleep;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +35,7 @@ public class StartCommand implements BotCommand {
 			for (String message : messages) {
 				bot.sendMessage(chatId, message);
 
-				try {
-					Thread.sleep(3000);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				sleep(3000);
 			}
 
 			sendMonitorButton(bot, chatId);

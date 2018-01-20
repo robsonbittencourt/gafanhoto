@@ -1,5 +1,7 @@
 package br.com.verdinhas.gafanhoto.workers;
 
+import static br.com.verdinhas.gafanhoto.util.Utils.sleep;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +25,26 @@ public class SendAlertsScheduler {
 
 	@Scheduled(fixedDelay = 65000)
 	public void sendAlerts() {
-		List<Alert> alerts = alertRepository.findAll();
+		Runnable task = () -> {
+			List<Alert> alerts = alertRepository.findAll();
 
-		log.info("Enviando {} alertas", alerts.size());
+			log.info("Enviando {} alertas", alerts.size());
 
-		for (Alert alert : alerts) {
-			sendMessageBot.sendMessage(alert.getChatId(), "Nova oferta encontrada: " + alert.getUrl());
-			alertRepository.delete(alert.id);
-		}
+			// Telegram api have a limit of 30 messages per second
+			int apiLimitHelper = 25;
+
+			for (int i = 0; i < alerts.size(); i++) {
+				if (i != 0 && i % apiLimitHelper == 0) {
+					sleep(1000);
+				}
+
+				Alert alert = alerts.get(i);
+				sendMessageBot.sendMessage(alert.getChatId(), "Nova oferta encontrada: " + alert.getUrl());
+				alertRepository.delete(alert.id);
+			}
+		};
+
+		new Thread(task).start();
 	}
 
 }
