@@ -25,12 +25,15 @@ public class Commands {
 	@Autowired
 	private ListMonitorsCommand listMonitorsCommand;
 
+	@Autowired
+	private HelpCommand helpCommand;
+
 	public void verifyCommands(ReceivedMessage message, String text, GafanhotoBot bot) {
 		getCommands().stream().filter(c -> text.startsWith(c.command())).findFirst()
 				.ifPresent(c -> c.doIt(bot, message));
 	}
 
 	private List<BotCommand> getCommands() {
-		return asList(startCommand, monitorCommand, deleteMonitorCommand, listMonitorsCommand);
+		return asList(startCommand, monitorCommand, deleteMonitorCommand, listMonitorsCommand, helpCommand);
 	}
 }

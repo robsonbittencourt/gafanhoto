@@ -37,6 +37,10 @@ public class ReceivedMessage {
 	}
 
 	public Integer userId() {
+		if (update.hasCallbackQuery()) {
+			return update.getCallbackQuery().getFrom().getId();
+		}
+
 		return update.getMessage().getFrom().getId();
 	}
 
