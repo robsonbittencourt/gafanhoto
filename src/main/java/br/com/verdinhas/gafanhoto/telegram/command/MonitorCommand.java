@@ -15,7 +15,6 @@ public class MonitorCommand implements BotCommand {
 
 	@Override
 	public void doIt(GafanhotoBot bot, ReceivedMessage message) {
-
 		bot.sendMessageWithCallback(message.chatId(), "Quais são as palavras-chave que você quer monitorar?",
 				"monitor");
 	}

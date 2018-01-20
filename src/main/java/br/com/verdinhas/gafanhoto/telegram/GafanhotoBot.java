@@ -51,36 +51,40 @@ public class GafanhotoBot extends TelegramLongPollingBot {
 	public void onUpdateReceived(Update update) {
 		ReceivedMessage message = new ReceivedMessage(update);
 
-		if (verifyCallbacks(message)) {
-			return;
-		}
+		verifyCallbacks(message);
 
 		if (message.hasText()) {
-			getCommands().stream().filter(c -> message.text().startsWith(c.command())).findFirst()
-					.ifPresent(c -> c.doIt(this, message));
+			verifyCommands(message, message.text());
 		}
 	}
 
-	private boolean verifyCallbacks(ReceivedMessage message) {
-		if (message.hasCallbackQuery()) {
-			getCallbacks().stream().filter(c -> message.callbackText().startsWith(c.prefixIdentifier())).findFirst()
-					.ifPresent(c -> c.callback(this, message));
+	private void verifyCommands(ReceivedMessage message, String text) {
+		getCommands().stream().filter(c -> text.startsWith(c.command())).findFirst()
+				.ifPresent(c -> c.doIt(this, message));
+	}
 
-			return true;
+	private void verifyCallbacks(ReceivedMessage message) {
+		if (message.hasCallbackQuery() && message.callbackText().startsWith("/")) {
+			verifyCommands(message, message.callbackText());
+			return;
+		}
+
+		if (message.hasCallbackQuery()) {
+			verifyCallbacks(message, message.callbackText());
+			return;
 		}
 
 		String callbackIdentifier = usersWaitingCallback.get(message.chatId());
 		if (callbackIdentifier != null) {
 			usersWaitingCallback.remove(message.chatId());
 
-			getCallbacks().stream()
-					.filter(c -> callbackIdentifier.startsWith(c.prefixIdentifier()))
-					.findFirst().ifPresent(c -> c.callback(this, message));
-
-			return true;
+			verifyCallbacks(message, callbackIdentifier);
 		}
+	}
 
-		return false;
+	private void verifyCallbacks(ReceivedMessage message, String text) {
+		getCallbacks().stream().filter(c -> text.startsWith(c.prefixIdentifier())).findFirst()
+				.ifPresent(c -> c.callback(this, message));
 	}
 
 	private List<BotCallback> getCallbacks() {
@@ -115,22 +119,6 @@ public class GafanhotoBot extends TelegramLongPollingBot {
 		usersWaitingCallback.put(chatId, callbackIdentifier);
 
 		sendMessage(chatId, message);
-	}
-
-	public void sendConversation(Long chatId, List<String> messages) {
-		Runnable task = () -> {
-			for (String message : messages) {
-				sendMessage(chatId, message);
-
-				try {
-					Thread.sleep(3000);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		};
-
-		new Thread(task).start();
 	}
 
 	public <T extends Serializable, Method extends BotApiMethod<T>> T execute(Method method) {
