@@ -6,11 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import br.com.verdinhas.gafanhoto.telegram.GafanhotoBot;
+import br.com.verdinhas.gafanhoto.telegram.MessageWithButtons;
 import br.com.verdinhas.gafanhoto.telegram.ReceivedMessage;
 import lombok.extern.slf4j.Slf4j;
 
@@ -62,24 +60,12 @@ public class StartCommand implements BotCommand {
 	}
 
 	private void sendMonitorButton(GafanhotoBot bot, Long chatId) {
-		SendMessage sendMessage = new SendMessage()
-				.setText("O que acha de já adicionar seu primeiro monitor? Clique no botão abaixo.").setChatId(chatId);
+		MessageWithButtons messageWithButtons = new MessageWithButtons(bot, chatId,
+				"O que acha de já adicionar seu primeiro monitor? Clique no botão abaixo.");
 
-		InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
-		List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+		messageWithButtons.addButton("Monitorar promoções", "/monitorar");
 
-		List<InlineKeyboardButton> rowInline = new ArrayList<>();
-
-		InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton().setText("monitorar")
-				.setCallbackData("/monitorar");
-		rowInline.add(inlineKeyboardButton);
-
-		rowsInline.add(rowInline);
-
-		markupInline.setKeyboard(rowsInline);
-		sendMessage.setReplyMarkup(markupInline);
-
-		bot.execute(sendMessage);
+		messageWithButtons.send();
 	}
 
 }

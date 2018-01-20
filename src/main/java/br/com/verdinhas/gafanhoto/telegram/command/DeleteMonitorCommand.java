@@ -1,18 +1,15 @@
 package br.com.verdinhas.gafanhoto.telegram.command;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import br.com.verdinhas.gafanhoto.monitor.Monitor;
 import br.com.verdinhas.gafanhoto.monitor.MonitorRepository;
 import br.com.verdinhas.gafanhoto.monitor.MonitorValidator;
 import br.com.verdinhas.gafanhoto.telegram.GafanhotoBot;
+import br.com.verdinhas.gafanhoto.telegram.MessageWithButtons;
 import br.com.verdinhas.gafanhoto.telegram.ReceivedMessage;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,27 +38,14 @@ public class DeleteMonitorCommand implements BotCommand {
 			return;
 		}
 
-		SendMessage sendMessage = new SendMessage().setChatId(message.chatId())
-				.setText("Qual monitor você quer apagar?");
-
-		InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
-		List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+		MessageWithButtons messageWithButtons = new MessageWithButtons(bot, message.chatId(), "Qual monitor você quer apagar?");
 
 		for (Monitor monitor : userMonitors) {
-			List<InlineKeyboardButton> rowInline = new ArrayList<>();
-
 			String callbackData = "delete-" + monitor.id;
-			InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton().setText(monitor.toString())
-					.setCallbackData(callbackData);
-			rowInline.add(inlineKeyboardButton);
-
-			rowsInline.add(rowInline);
+			messageWithButtons.addButton(monitor.toString(), callbackData);
 		}
 
-		markupInline.setKeyboard(rowsInline);
-		sendMessage.setReplyMarkup(markupInline);
-
-		bot.execute(sendMessage);
+		messageWithButtons.send();
 	}
 
 }

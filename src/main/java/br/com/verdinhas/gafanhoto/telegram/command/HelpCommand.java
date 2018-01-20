@@ -1,14 +1,9 @@
 package br.com.verdinhas.gafanhoto.telegram.command;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import br.com.verdinhas.gafanhoto.telegram.GafanhotoBot;
+import br.com.verdinhas.gafanhoto.telegram.MessageWithButtons;
 import br.com.verdinhas.gafanhoto.telegram.ReceivedMessage;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,32 +18,14 @@ public class HelpCommand implements BotCommand {
 	public void doIt(GafanhotoBot bot, ReceivedMessage message) {
 		log.info("Executando comando help");
 
-		SendMessage sendMessage = new SendMessage().setChatId(message.chatId()).setText("Veja as opções disponíveis");
+		MessageWithButtons messageWithButtons = new MessageWithButtons(bot, message.chatId(),
+				"Veja as opções disponíveis");
 
-		InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
-		List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+		messageWithButtons.addButton("Monitorar promoções", "/monitorar");
+		messageWithButtons.addButton("Apagar monitores", "/apagar");
+		messageWithButtons.addButton("Listar monitores", "/listar");
 
-		addOption(rowsInline, "Monitorar promoções", "/monitorar");
-		addOption(rowsInline, "Apagar monitores", "/apagar");
-		addOption(rowsInline, "Listar monitores", "/listar");
-
-		markupInline.setKeyboard(rowsInline);
-		sendMessage.setReplyMarkup(markupInline);
-
-		bot.execute(sendMessage);
-	}
-
-	private List<InlineKeyboardButton> addOption(List<List<InlineKeyboardButton>> rowsInline, String description,
-			String callbackIdentifier) {
-		List<InlineKeyboardButton> rowInline = new ArrayList<>();
-
-		InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton().setText(description)
-				.setCallbackData(callbackIdentifier);
-		rowInline.add(inlineKeyboardButton);
-
-		rowsInline.add(rowInline);
-
-		return rowInline;
+		messageWithButtons.send();
 	}
 
 }
