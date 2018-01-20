@@ -54,7 +54,14 @@ public class MonitorCallback implements BotCallback {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("Monitor criado com sucesso. ");
-		sb.append("Vou te avisar quando aparecer uma oferta que atenda as palavras-chave:").append(lineSeparator());
+
+		if (message.splitMessage().size() == 1) {
+			sb.append("Vou te avisar quando aparecer uma oferta que atenda a palavra-chave:");
+		} else {
+			sb.append("Vou te avisar quando aparecer uma oferta que atenda as palavras-chave:");
+		}
+
+		sb.append(lineSeparator());
 		sb.append(addSeparators(message.splitMessage()));
 
 		return sb.toString();
