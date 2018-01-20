@@ -23,7 +23,7 @@ public class SendAlertsScheduler {
 	@Autowired
 	private GafanhotoBot sendMessageBot;
 
-	@Scheduled(fixedDelay = 65000)
+	@Scheduled(fixedDelay = 15000)
 	public void sendAlerts() {
 		Runnable task = () -> {
 			List<Alert> alerts = alertRepository.findAll();

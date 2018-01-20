@@ -26,7 +26,7 @@ public class AlertsVerifierScheduler {
 	@Autowired
 	private AlertCreator alertCreator;
 
-	@Scheduled(fixedDelay = 60000)
+	@Scheduled(fixedDelay = 10000)
 	public void verifyAlerts() {
 		List<Url> urlsFromSources = urlCrawlerAggregator.retrieveUrlsFromSources();
 
