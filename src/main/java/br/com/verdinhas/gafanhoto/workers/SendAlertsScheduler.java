@@ -9,7 +9,9 @@ import org.springframework.stereotype.Component;
 import br.com.verdinhas.gafanhoto.alert.Alert;
 import br.com.verdinhas.gafanhoto.alert.AlertRepository;
 import br.com.verdinhas.gafanhoto.telegram.GafanhotoBot;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class SendAlertsScheduler {
 
@@ -22,6 +24,8 @@ public class SendAlertsScheduler {
 	@Scheduled(fixedDelay = 65000)
 	public void sendAlerts() {
 		List<Alert> alerts = alertRepository.findAll();
+
+		log.info("Enviando {} alertas", alerts.size());
 
 		for (Alert alert : alerts) {
 			sendMessageBot.sendMessage(alert.getChatId(), "Nova oferta encontrada: " + alert.getUrl());

@@ -36,7 +36,6 @@ public class Callbacks {
 
 		if (callbackIdentifier != null) {
 			verifyCallbacks(message, callbackIdentifier, bot);
-
 			return true;
 		}
 

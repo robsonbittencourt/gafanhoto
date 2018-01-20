@@ -12,6 +12,9 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class HardmobPromocoesWebCrawler implements UrlCrawler {
 
@@ -27,20 +30,15 @@ public class HardmobPromocoesWebCrawler implements UrlCrawler {
 	@Override
 	public List<String> retrieveUrlsFromSource() {
 		try {
-			Document document = Jsoup.connect(forumUrl)
-					.userAgent(userAgent)
-					.get();
+			Document document = Jsoup.connect(forumUrl).userAgent(userAgent).get();
 
 			Elements links = document.select("a." + titleClass);
 
-			return links.stream()
-					.map(l -> l.attr("abs:href"))
-					.collect(toList());
+			return links.stream().map(l -> l.attr("abs:href")).collect(toList());
 		} catch (Exception e) {
-			// TODO log
+			log.error("Ocorreu um erro ao buscar as urls", e);
 			return new ArrayList<>();
 		}
-
 	}
 
 	@Override
@@ -49,9 +47,7 @@ public class HardmobPromocoesWebCrawler implements UrlCrawler {
 
 		List<String> wordsWithSeparator = asList(withoutPrefixAndSufix.split("-"));
 
-		List<String> words = wordsWithSeparator.stream()
-				.filter(w -> w.length() > 1)
-				.collect(toList());
+		List<String> words = wordsWithSeparator.stream().filter(w -> w.length() > 1).collect(toList());
 
 		return words;
 	}

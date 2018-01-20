@@ -10,7 +10,9 @@ import org.telegram.telegrambots.api.objects.replykeyboard.buttons.InlineKeyboar
 
 import br.com.verdinhas.gafanhoto.telegram.GafanhotoBot;
 import br.com.verdinhas.gafanhoto.telegram.ReceivedMessage;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class HelpCommand implements BotCommand {
 
@@ -19,12 +21,14 @@ public class HelpCommand implements BotCommand {
 	}
 
 	public void doIt(GafanhotoBot bot, ReceivedMessage message) {
+		log.info("Executando comando help");
+
 		SendMessage sendMessage = new SendMessage().setChatId(message.chatId()).setText("Veja as opções disponíveis");
 
 		InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
 		List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
 
-		addOption(rowsInline, "Monitorar", "/monitorar");
+		addOption(rowsInline, "Monitorar promoções", "/monitorar");
 		addOption(rowsInline, "Apagar monitores", "/apagar");
 		addOption(rowsInline, "Listar monitores", "/listar");
 

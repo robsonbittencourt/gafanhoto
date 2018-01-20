@@ -10,7 +10,9 @@ import org.telegram.telegrambots.api.objects.replykeyboard.buttons.InlineKeyboar
 
 import br.com.verdinhas.gafanhoto.telegram.GafanhotoBot;
 import br.com.verdinhas.gafanhoto.telegram.ReceivedMessage;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class StartCommand implements BotCommand {
 
@@ -21,6 +23,8 @@ public class StartCommand implements BotCommand {
 
 	@Override
 	public void doIt(GafanhotoBot bot, ReceivedMessage message) {
+		log.info("Executando comando start");
+
 		sendConversation(message.chatId(), buildStartMessages(), bot);
 	}
 

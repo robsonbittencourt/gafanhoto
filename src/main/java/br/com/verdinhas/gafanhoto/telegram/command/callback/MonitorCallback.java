@@ -10,7 +10,9 @@ import br.com.verdinhas.gafanhoto.monitor.MonitorCreator;
 import br.com.verdinhas.gafanhoto.monitor.MonitorValidator;
 import br.com.verdinhas.gafanhoto.telegram.GafanhotoBot;
 import br.com.verdinhas.gafanhoto.telegram.ReceivedMessage;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class MonitorCallback implements BotCallback {
 
@@ -36,6 +38,8 @@ public class MonitorCallback implements BotCallback {
 		}
 
 		monitorCreator.create(message);
+
+		log.info("Monitor criado. Palavras chave: {}", message.text());
 
 		bot.sendMessage(message.chatId(), buildMonitorarFeedbackMessage(message));
 	}

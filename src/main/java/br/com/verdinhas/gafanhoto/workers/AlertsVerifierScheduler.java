@@ -11,7 +11,9 @@ import br.com.verdinhas.gafanhoto.alert.AlertCreator;
 import br.com.verdinhas.gafanhoto.url.NewUrlFilter;
 import br.com.verdinhas.gafanhoto.url.Url;
 import br.com.verdinhas.gafanhoto.webcrawler.UrlCrawlerAggregator;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class AlertsVerifierScheduler {
 
@@ -30,8 +32,9 @@ public class AlertsVerifierScheduler {
 
 		Set<Url> newUrls = newUrlFilter.filter(urlsFromSources);
 
-		newUrls.stream()
-				.forEach(u -> alertCreator.createAlerts(u));
+		log.info("{} novas urls encontradas", newUrls.size());
+
+		newUrls.stream().forEach(u -> alertCreator.createAlerts(u));
 	}
 
 }

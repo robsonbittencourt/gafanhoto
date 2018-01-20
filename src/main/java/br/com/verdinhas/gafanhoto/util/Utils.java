@@ -18,8 +18,8 @@ public class Utils {
 		StringBuilder sb = new StringBuilder();
 
 		for (String arg : words) {
-			sb.append(arg)
-					.append(" - ");
+			sb.append(arg);
+			sb.append(" - ");
 		}
 
 		String withSeparators = sb.toString();

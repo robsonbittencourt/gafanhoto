@@ -12,7 +12,9 @@ import br.com.verdinhas.gafanhoto.monitor.MonitorRepository;
 import br.com.verdinhas.gafanhoto.monitor.MonitorValidator;
 import br.com.verdinhas.gafanhoto.telegram.GafanhotoBot;
 import br.com.verdinhas.gafanhoto.telegram.ReceivedMessage;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class ListMonitorsCommand implements BotCommand {
 
@@ -29,6 +31,8 @@ public class ListMonitorsCommand implements BotCommand {
 
 	@Override
 	public void doIt(GafanhotoBot bot, ReceivedMessage message) {
+		log.info("Executando comando listar");
+
 		List<Monitor> userMonitors = monitorRepository.findByUserId(message.userId());
 
 		if (monitorValidator.thereAreNoMonitors(bot, message, userMonitors)) {

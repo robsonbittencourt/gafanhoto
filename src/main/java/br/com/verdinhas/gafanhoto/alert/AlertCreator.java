@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import br.com.verdinhas.gafanhoto.monitor.Monitor;
 import br.com.verdinhas.gafanhoto.monitor.MonitorSearcher;
 import br.com.verdinhas.gafanhoto.url.Url;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class AlertCreator {
 
@@ -25,6 +27,8 @@ public class AlertCreator {
 	}
 
 	private void createAlertsToMonitors(Url url, List<Monitor> monitors) {
+		log.info("Criando {} novos alertas", monitors.size());
+
 		for (Monitor monitor : monitors) {
 			alertRepository.save(new Alert(monitor.getUserId(), monitor.getChatId(), url.getUrl()));
 		}

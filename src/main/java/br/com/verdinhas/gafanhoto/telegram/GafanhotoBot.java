@@ -14,7 +14,9 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 import br.com.verdinhas.gafanhoto.telegram.command.Commands;
 import br.com.verdinhas.gafanhoto.telegram.command.callback.Callbacks;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class GafanhotoBot extends TelegramLongPollingBot {
 
@@ -33,10 +35,16 @@ public class GafanhotoBot extends TelegramLongPollingBot {
 		String callbackIdentifier = getCallbackIdentifier(message);
 
 		boolean executedCallback = callbacks.verifyCallbacks(message, this, callbackIdentifier);
-
-		if (!executedCallback) {
-			commands.verifyCommands(message, message.text(), this);
+		if (executedCallback) {
+			return;
 		}
+
+		boolean executedCommand = commands.verifyCommands(message, message.text(), this);
+		if (executedCommand) {
+			return;
+		}
+
+		log.info("Recebeu mensagem não tratada. Usuário: {} - Mensagem: {}", message.userId(), message.text());
 	}
 
 	private String getCallbackIdentifier(ReceivedMessage message) {
@@ -61,7 +69,7 @@ public class GafanhotoBot extends TelegramLongPollingBot {
 		try {
 			execute(sendMessage);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Erro ao enviar mensagem", e);
 		}
 	}
 
@@ -75,7 +83,7 @@ public class GafanhotoBot extends TelegramLongPollingBot {
 		try {
 			return super.execute(method);
 		} catch (TelegramApiException e) {
-			e.printStackTrace();
+			log.error("Erro ao enviar mensagem", e);
 			return null;
 		}
 	}

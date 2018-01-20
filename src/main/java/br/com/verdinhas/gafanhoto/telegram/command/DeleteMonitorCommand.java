@@ -14,7 +14,9 @@ import br.com.verdinhas.gafanhoto.monitor.MonitorRepository;
 import br.com.verdinhas.gafanhoto.monitor.MonitorValidator;
 import br.com.verdinhas.gafanhoto.telegram.GafanhotoBot;
 import br.com.verdinhas.gafanhoto.telegram.ReceivedMessage;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class DeleteMonitorCommand implements BotCommand {
 
@@ -31,6 +33,8 @@ public class DeleteMonitorCommand implements BotCommand {
 
 	@Override
 	public void doIt(GafanhotoBot bot, ReceivedMessage message) {
+		log.info("Executando comando help");
+
 		List<Monitor> userMonitors = monitorRepository.findByUserId(message.userId());
 
 		if (monitorValidator.thereAreNoMonitors(bot, message, userMonitors)) {
@@ -47,7 +51,8 @@ public class DeleteMonitorCommand implements BotCommand {
 			List<InlineKeyboardButton> rowInline = new ArrayList<>();
 
 			String callbackData = "delete-" + monitor.id;
-			InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton().setText(monitor.toString()).setCallbackData(callbackData);
+			InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton().setText(monitor.toString())
+					.setCallbackData(callbackData);
 			rowInline.add(inlineKeyboardButton);
 
 			rowsInline.add(rowInline);
