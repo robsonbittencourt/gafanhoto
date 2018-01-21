@@ -2,6 +2,9 @@ package br.com.verdinhas.gafanhoto.alert;
 
 import org.springframework.data.annotation.Id;
 
+import lombok.Getter;
+
+@Getter
 public class Alert {
 
 	@Id
@@ -15,22 +18,6 @@ public class Alert {
 		this.userId = userId;
 		this.chatId = chatId;
 		this.url = url;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public long getChatId() {
-		return chatId;
-	}
-
-	public String getUrl() {
-		return url;
 	}
 
 }

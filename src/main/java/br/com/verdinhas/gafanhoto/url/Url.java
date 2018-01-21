@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
+import lombok.Getter;
+
+@Getter
 public class Url {
 
 	@Id
@@ -20,22 +23,6 @@ public class Url {
 		this.url = url;
 		this.urlWords = urlWords;
 		this.date = date;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public List<String> getUrlWords() {
-		return urlWords;
-	}
-
-	public Date getDate() {
-		return date;
 	}
 
 	@Override
@@ -62,5 +49,5 @@ public class Url {
 			return false;
 		return true;
 	}
-
+	
 }

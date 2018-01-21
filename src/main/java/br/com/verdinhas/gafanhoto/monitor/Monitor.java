@@ -9,6 +9,9 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
+import lombok.Getter;
+
+@Getter
 public class Monitor {
 
 	@Id
@@ -24,26 +27,6 @@ public class Monitor {
 		this.chatId = chatId;
 		this.mainKeyWord = normalizeString(mainKeyWord);
 		this.otherKeyWords = otherKeyWords.stream().map(k -> normalizeString(k)).collect(toList());
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public long getChatId() {
-		return chatId;
-	}
-
-	public String getMainKeyWord() {
-		return mainKeyWord;
-	}
-
-	public List<String> getOtherKeyWords() {
-		return otherKeyWords;
 	}
 
 	@Override
