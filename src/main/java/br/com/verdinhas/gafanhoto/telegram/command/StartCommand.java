@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.vdurmont.emoji.EmojiManager;
+
 import br.com.verdinhas.gafanhoto.telegram.GafanhotoBot;
 import br.com.verdinhas.gafanhoto.telegram.MessageWithButtons;
 import br.com.verdinhas.gafanhoto.telegram.ReceivedMessage;
@@ -43,9 +45,11 @@ public class StartCommand implements BotCommand {
 
 	private List<String> buildStartMessages() {
 		List<String> messages = new ArrayList<>();
+		
+		String monkeyEmoji = EmojiManager.getForAlias("see_no_evil").getUnicode();
 
 		messages.add("Olá jovem gafanhoto.");
-		messages.add("Apartir de agora, vou poupar você de ficar frenéticamente atrás de promoções.");
+		messages.add("Apartir de agora, vou poupar você de ficar frenéticamente atrás de promoções " + monkeyEmoji);
 		messages.add("Posso te avisar quando novas promoções surgirem, para isso você pode me pedir para monitorar certas palavras-chave para você.");
 		messages.add("Para fazer isso digite o comando /monitorar e informe até 5 palavras-chave como por exemplo: TV Samsung LED");
 		messages.add("Escolha as palavras com cuidado, pois só vou te mostrar caso todas elas apareçam no link da promoção.");
