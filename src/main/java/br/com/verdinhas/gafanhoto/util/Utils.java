@@ -19,11 +19,11 @@ public class Utils {
 
 	public static String addSeparators(List<String> words) {
 		StringBuilder sb = new StringBuilder();
-
-		for (String arg : words) {
-			sb.append(arg);
+		
+		words.forEach(w -> {
+			sb.append(w);
 			sb.append(" - ");
-		}
+		});
 
 		String withSeparators = sb.toString();
 		String withoutLastSeparator = withSeparators.substring(0, withSeparators.length() - 2);

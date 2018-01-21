@@ -30,11 +30,10 @@ public class StartCommand implements BotCommand {
 
 	private void sendConversation(Long chatId, List<String> messages, GafanhotoBot bot) {
 		Runnable task = () -> {
-			for (String message : messages) {
-				bot.sendMessage(chatId, message);
-
+			messages.forEach(m -> {
+				bot.sendMessage(chatId, m);
 				sleep(3000);
-			}
+			});
 
 			sendMonitorButton(bot, chatId);
 		};
@@ -47,12 +46,9 @@ public class StartCommand implements BotCommand {
 
 		messages.add("Olá jovem gafanhoto.");
 		messages.add("Apartir de agora, vou poupar você de ficar frenéticamente atrás de promoções.");
-		messages.add(
-				"Posso te avisar quando novas promoções surgirem, para isso você pode me pedir para monitorar certas palavras-chave para você.");
-		messages.add(
-				"Para fazer isso digite o comando /monitorar e informe até 5 palavras-chave como por exemplo: TV Samsung LED");
-		messages.add(
-				"Escolha as palavras com cuidado, pois só vou te mostrar caso todas elas apareçam no link da promoção.");
+		messages.add("Posso te avisar quando novas promoções surgirem, para isso você pode me pedir para monitorar certas palavras-chave para você.");
+		messages.add("Para fazer isso digite o comando /monitorar e informe até 5 palavras-chave como por exemplo: TV Samsung LED");
+		messages.add("Escolha as palavras com cuidado, pois só vou te mostrar caso todas elas apareçam no link da promoção.");
 		messages.add("Quando mais palavras, mais específica será a busca.");
 		messages.add("Para listar todos os comandos disponíveis digite /help que te mostro.");
 
@@ -60,8 +56,7 @@ public class StartCommand implements BotCommand {
 	}
 
 	private void sendMonitorButton(GafanhotoBot bot, Long chatId) {
-		MessageWithButtons messageWithButtons = new MessageWithButtons(bot, chatId,
-				"O que acha de já adicionar seu primeiro monitor? Clique no botão abaixo.");
+		MessageWithButtons messageWithButtons = new MessageWithButtons(bot, chatId, "O que acha de já adicionar seu primeiro monitor? Clique no botão abaixo.");
 
 		messageWithButtons.addButton("Monitorar promoções", "/monitorar");
 

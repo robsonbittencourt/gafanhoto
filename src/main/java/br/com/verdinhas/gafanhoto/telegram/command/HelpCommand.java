@@ -18,8 +18,7 @@ public class HelpCommand implements BotCommand {
 	public void doIt(GafanhotoBot bot, ReceivedMessage message) {
 		log.info("Executando comando help");
 
-		MessageWithButtons messageWithButtons = new MessageWithButtons(bot, message.chatId(),
-				"Veja as opções disponíveis");
+		MessageWithButtons messageWithButtons = new MessageWithButtons(bot, message.chatId(), "Veja as opções disponíveis");
 
 		messageWithButtons.addButton("Monitorar promoções", "/monitorar");
 		messageWithButtons.addButton("Apagar monitores", "/apagar");

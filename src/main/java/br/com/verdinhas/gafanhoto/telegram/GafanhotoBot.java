@@ -31,7 +31,6 @@ public class GafanhotoBot extends TelegramLongPollingBot {
 	@Override
 	public void onUpdateReceived(Update update) {
 		ReceivedMessage message = new ReceivedMessage(update);
-
 		String callbackIdentifier = getCallbackIdentifier(message);
 
 		boolean executedCallback = callbacks.verifyCallbacks(message, this, callbackIdentifier);

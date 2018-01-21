@@ -45,7 +45,10 @@ public class ListMonitorsCommand implements BotCommand {
 	private String buildMonitorList(List<Monitor> userMonitors) {
 		StringBuilder sb = new StringBuilder();
 
-		userMonitors.forEach(m -> sb.append("* " + m.toString()).append(lineSeparator()));
+		userMonitors.forEach(m -> {
+			sb.append("* " + m.toString());
+			sb.append(lineSeparator());
+		});
 
 		return sb.toString();
 	}

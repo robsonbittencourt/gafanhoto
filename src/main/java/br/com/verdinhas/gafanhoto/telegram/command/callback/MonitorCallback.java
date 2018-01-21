@@ -46,8 +46,7 @@ public class MonitorCallback implements BotCallback {
 
 	private boolean isInvalidKeyWordsQuantity(ReceivedMessage message, GafanhotoBot bot) {
 		if (message.splitMessage().size() > 5) {
-			bot.sendMessageWithCallback(message.chatId(),
-					"Quantidade de palavras-chave inválida. Insira de 1 a 5 palavras-chave.", "monitor");
+			bot.sendMessageWithCallback(message.chatId(), "Quantidade de palavras-chave inválida. Insira de 1 a 5 palavras-chave.", "monitor");
 			return true;
 		}
 

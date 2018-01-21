@@ -30,7 +30,9 @@ public class Commands {
 	private HelpCommand helpCommand;
 
 	public boolean verifyCommands(ReceivedMessage message, String text, GafanhotoBot bot) {
-		Optional<BotCommand> findFirst = getCommands().stream().filter(c -> text.startsWith(c.command())).findFirst();
+		Optional<BotCommand> findFirst = getCommands().stream()
+				.filter(c -> text.startsWith(c.command()))
+				.findFirst();
 
 		if (findFirst.isPresent()) {
 			findFirst.get().doIt(bot, message);

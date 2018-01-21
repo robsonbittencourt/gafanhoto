@@ -16,13 +16,13 @@ public class NewUrlFilter {
 	public Set<Url> filter(List<Url> urls) {
 		Set<Url> newUrls = new HashSet<>();
 		Set<Url> databaseUrls = new HashSet<Url>(urlRepository.findAll());
-
-		for (Url url : urls) {
-			if (databaseUrls.add(url)) {
-				urlRepository.save(url);
-				newUrls.add(url);
+		
+		urls.forEach(u -> {
+			if (databaseUrls.add(u)) {
+				urlRepository.save(u);
+				newUrls.add(u);
 			}
-		}
+		});
 
 		return newUrls;
 	}

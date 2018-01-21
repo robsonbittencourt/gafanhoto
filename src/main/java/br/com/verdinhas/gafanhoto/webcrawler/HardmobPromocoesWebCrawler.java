@@ -34,7 +34,9 @@ public class HardmobPromocoesWebCrawler implements UrlCrawler {
 
 			Elements links = document.select("a." + titleClass);
 
-			return links.stream().map(l -> l.attr("abs:href")).collect(toList());
+			return links.stream()
+					.map(l -> l.attr("abs:href"))
+					.collect(toList());
 		} catch (Exception e) {
 			log.error("Ocorreu um erro ao buscar as urls", e);
 			return new ArrayList<>();
@@ -47,7 +49,9 @@ public class HardmobPromocoesWebCrawler implements UrlCrawler {
 
 		List<String> wordsWithSeparator = asList(withoutPrefixAndSufix.split("-"));
 
-		List<String> words = wordsWithSeparator.stream().filter(w -> w.length() > 1).collect(toList());
+		List<String> words = wordsWithSeparator.stream()
+				.filter(w -> w.length() > 1)
+				.collect(toList());
 
 		return words;
 	}

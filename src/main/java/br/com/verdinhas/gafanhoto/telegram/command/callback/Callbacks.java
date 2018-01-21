@@ -43,8 +43,10 @@ public class Callbacks {
 	}
 
 	private void verifyCallbacks(ReceivedMessage message, String text, GafanhotoBot bot) {
-		getCallbacks().stream().filter(c -> text.startsWith(c.prefixIdentifier())).findFirst()
-				.ifPresent(c -> c.callback(bot, message));
+		getCallbacks().stream()
+			.filter(c -> text.startsWith(c.prefixIdentifier()))
+			.findFirst()
+			.ifPresent(c -> c.callback(bot, message));
 	}
 
 	private List<BotCallback> getCallbacks() {

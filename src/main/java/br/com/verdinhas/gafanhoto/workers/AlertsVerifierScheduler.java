@@ -34,7 +34,7 @@ public class AlertsVerifierScheduler {
 
 		log.info("{} novas urls encontradas", newUrls.size());
 
-		newUrls.stream().forEach(u -> alertCreator.createAlerts(u));
+		newUrls.forEach(u -> alertCreator.createAlerts(u));
 	}
 
 }
