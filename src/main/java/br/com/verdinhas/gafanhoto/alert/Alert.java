@@ -2,9 +2,11 @@ package br.com.verdinhas.gafanhoto.alert;
 
 import org.springframework.data.annotation.Id;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
+@EqualsAndHashCode
 public class Alert {
 
 	@Id

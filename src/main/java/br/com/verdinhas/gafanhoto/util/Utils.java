@@ -26,7 +26,7 @@ public class Utils {
 		});
 
 		String withSeparators = sb.toString();
-		String withoutLastSeparator = withSeparators.substring(0, withSeparators.length() - 2);
+		String withoutLastSeparator = withSeparators.substring(0, withSeparators.length() - 3);
 
 		return withoutLastSeparator;
 	}
