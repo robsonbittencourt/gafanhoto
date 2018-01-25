@@ -19,11 +19,14 @@ public class Url {
 
 	private List<String> urlWords;
 
+	private String identifier;
+
 	private Date date;
 
-	public Url(String url, List<String> urlWords, Date date) {
+	public Url(String url, List<String> urlWords, String identifier, Date date) {
 		this.url = url;
 		this.urlWords = urlWords;
+		this.identifier = identifier;
 		this.date = date;
 	}
 

@@ -44,7 +44,7 @@ public class AlertCreatorTest {
 	public void shouldCreateAnAlertForEachFoundedMonitor() {
 		List<String> urlWords = new ArrayList<>();
 		urlWords.add("test");
-		Url url = new Url("www.test.com", urlWords, new Date());
+		Url url = new Url("www.test.com", urlWords, "1234",new Date());
 		
 		List<Monitor> monitors = new ArrayList<>();
 		monitors.add(new Monitor(0, 0L, "test", new ArrayList<>()));

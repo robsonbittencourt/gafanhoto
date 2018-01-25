@@ -56,4 +56,9 @@ public class HardmobPromocoesWebCrawler implements UrlCrawler {
 		return words;
 	}
 
+	@Override
+	public String getIdentifier(String url) {
+		return url.substring(forumUrl.lastIndexOf("/") + 1, url.indexOf("-"));
+	}
+
 }
