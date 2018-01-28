@@ -1,7 +1,8 @@
 package br.com.verdinhas.gafanhoto.monitor;
 
+import static br.com.verdinhas.gafanhoto.util.Utils.addSeparators;
+import static br.com.verdinhas.gafanhoto.util.Utils.normalizeString;
 import static java.util.stream.Collectors.toList;
-import static org.apache.commons.lang3.StringUtils.stripAccents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,9 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 
 import br.com.verdinhas.gafanhoto.util.Utils;
+import lombok.Getter;
 
+@Getter
 public class Monitor {
 
 	@Id
@@ -24,33 +27,9 @@ public class Monitor {
 		this.userId = userId;
 		this.chatId = chatId;
 		this.mainKeyWord = normalizeString(mainKeyWord);
-		this.otherKeyWords = otherKeyWords.stream().map(k -> normalizeString(k)).collect(toList());
+		this.otherKeyWords = otherKeyWords.stream().map(Utils::normalizeString).collect(toList());
 	}
 
-	private String normalizeString(String string) {
-		return stripAccents(string.toLowerCase());
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public long getChatId() {
-		return chatId;
-	}
-
-	public String getMainKeyWord() {
-		return mainKeyWord;
-	}
-
-	public List<String> getOtherKeyWords() {
-		return otherKeyWords;
-	}
-	
 	@Override
 	public String toString() {
 		List<String> keywords = new ArrayList<>();
@@ -58,7 +37,7 @@ public class Monitor {
 		keywords.add(mainKeyWord);
 		keywords.addAll(otherKeyWords);
 
-		return Utils.addSeparators(keywords);
+		return addSeparators(keywords);
 	}
 
 }

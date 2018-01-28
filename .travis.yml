@@ -9,13 +9,14 @@ addons:
     token:
       secure: lUrnzKywEn9M40CewnCwtBkgBMw07sWorXtSio916iL0jvatCthPyLogTuY+7auuKZeAzsoABsMI/+qe2TfJio50/HpnF2DEL+x1U5TN2dZfx7QO2/vIN+/zNtBcLaX0cNP+KzE1oFwjY7oxC3G8wQM4te8GS/K2ePxJoK1ybVMt4SkaDTZAI5/r+cnygAinC5ReD7joicxne3U2U5ldLHz2GpOaWd0g2K7ETSs0JrdiAP+I/aXRnSi/1GoOhHJ/a6HKst53vl1sdF8Ocv1eH3Yp/oLuVwIBiny7QD3iPAR3P2NJF4aDFseRey2y2ATOCDgA1F6tevakXU8vM/uQf2IVx8I1kRrhfgGllG7talFzSjhemUBptIMMJp03F1uPMIp4/CtCwRUA4qm64WAYFA21fW2rQXgQ8V/u0svA2j7xBnT6STo2tYrD2iWIxgXjIkPlGDgCHzxqGWqkWvzS5e4di/khLFgEacMMQU/YDXCe2+B/pHXovNBdcPSroKJMLNk6fF9oun7AHbqQlqqrEQ47hGQ85beFA2cuYy34lUNRP/MFUDYLm94l17wREb8oFJce3c0bntSpKnlPfYlbiyfUlL3ypQpmDGJX6u+ZpfZdcFWooxbgibxwGmzgH9er2y9+EzlZxUMmaj9BQ/RC5fdR93l8jefxit4reVfuvlY=
     branches:
-    - master
+      - master
+      - develop
 
 jdk:
   - oraclejdk8
 
 script:
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify -DskipITs=false sonar:sonar
+  - mvn clean verify sonar:sonar
 
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
