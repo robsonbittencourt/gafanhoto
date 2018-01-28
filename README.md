@@ -24,7 +24,7 @@ Acesse a área de pesquisa de usuários no Telegram, e pesquise por `GafanhotoMo
 Ao iniciar a conversa, clique no botão `start` e as instruções serão apresentadas.
 
 ## Monitorando
-Digite o comando `/monitorar` e será perguntado quais palavras-chave você deseja monitorar. Quando mais palavras-chave, mais específica será a busca.
+Digite o comando `/monitorar` e será perguntado quais palavras-chave você deseja monitorar. Quanto mais palavras-chave, mais específica será a busca.
 
 <p align="center">
   <img width="360" height="640" src="media/screenshot_2.jpg">
@@ -38,7 +38,7 @@ Digite o comando `/listar` e serão apresentados os monitores que você possui c
 </p>
 
 ## Apagando os monitores
-Se você não deseja monitorar um certo conjunto de palavras-chave, utiliza o comando `apagar` e escolha um monitor para excluir.
+Se você não deseja monitorar um certo conjunto de palavras-chave, utilize o comando `apagar` e escolha um monitor para excluir.
 
 <p align="center">
   <img width="360" height="640" src="media/screenshot_4.jpg">
