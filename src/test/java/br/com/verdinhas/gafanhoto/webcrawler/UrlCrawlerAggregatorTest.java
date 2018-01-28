@@ -37,8 +37,9 @@ public class UrlCrawlerAggregatorTest {
 		
 		List<Url> retrieveUrlsFromSources = urlCrawlerAggregator.retrieveUrlsFromSources();
 		
-		assertEquals("http://www.hardmob.com.br/promocoes/682287-saraiva-box-a-historia-da-primeira-guerra-mundial-1914-1918-4-volumes-r-28-73-a.html", retrieveUrlsFromSources.get(0).getUrl());
-		assertEquals("http://www.hardmob.com.br/promocoes/682256-starbucks-cafe-gratis-na-compra-de-croissant-no-dia-do-croissant-sp-rj-dia-30-a.html", retrieveUrlsFromSources.get(1).getUrl());
-		assertEquals("http://www.hardmob.com.br/promocoes/679910-mosalinga-aprenda-ingles-premium-gratis-pra-ios-android.html", retrieveUrlsFromSources.get(2).getUrl());}
+		assertEquals("http://www.hardmob.com.br/promocoes/682287-saraiva-box-a-historia-da-primeira-guerra-mundial-1914-1918-4-volumes-r-28-73-a.html", retrieveUrlsFromSources.get(0).getUrlAddress());
+		assertEquals("http://www.hardmob.com.br/promocoes/682256-starbucks-cafe-gratis-na-compra-de-croissant-no-dia-do-croissant-sp-rj-dia-30-a.html", retrieveUrlsFromSources.get(1).getUrlAddress());
+		assertEquals("http://www.hardmob.com.br/promocoes/679910-mosalinga-aprenda-ingles-premium-gratis-pra-ios-android.html", retrieveUrlsFromSources.get(2).getUrlAddress());
+	}
 
 }

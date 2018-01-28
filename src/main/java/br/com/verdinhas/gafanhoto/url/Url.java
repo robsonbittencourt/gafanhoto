@@ -15,7 +15,7 @@ public class Url {
 	@Id
 	public String id;
 
-	private String url;
+	private String urlAddress;
 
 	private List<String> urlWords;
 
@@ -23,8 +23,8 @@ public class Url {
 
 	private Date date;
 
-	public Url(String url, List<String> urlWords, String identifier, Date date) {
-		this.url = url;
+	public Url(String urlAddress, List<String> urlWords, String identifier, Date date) {
+		this.urlAddress = urlAddress;
 		this.urlWords = urlWords;
 		this.identifier = identifier;
 		this.date = date;

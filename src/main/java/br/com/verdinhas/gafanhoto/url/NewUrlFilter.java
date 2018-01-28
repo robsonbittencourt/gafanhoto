@@ -15,7 +15,7 @@ public class NewUrlFilter {
 
 	public Set<Url> filter(List<Url> urls) {
 		Set<Url> newUrls = new HashSet<>();
-		Set<Url> databaseUrls = new HashSet<Url>(urlRepository.findAll());
+		Set<Url> databaseUrls = new HashSet<>(urlRepository.findAll());
 		
 		urls.forEach(u -> {
 			if (databaseUrls.add(u)) {

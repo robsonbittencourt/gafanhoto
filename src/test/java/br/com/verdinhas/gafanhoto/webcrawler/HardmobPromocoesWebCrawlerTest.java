@@ -26,7 +26,7 @@ public class HardmobPromocoesWebCrawlerTest {
 	public void shouldDecomposeUrlInWords() {
 		List<String> words = hardmobCrawler.decompose("http://www.hardmob.com.br/promocoes/682015-magazine-luiza-xbox-live-gold-de-12-meses-r-99-00-a.html");
 
-		assertEquals(words.size(), 10);
+		assertEquals(10, words.size());
 		assertEquals("magazine", words.get(0));
 		assertEquals("luiza", words.get(1));
 		assertEquals("xbox", words.get(2));

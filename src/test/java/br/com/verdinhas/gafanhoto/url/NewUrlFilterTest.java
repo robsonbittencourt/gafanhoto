@@ -51,8 +51,8 @@ public class NewUrlFilterTest {
 		Set<Url> newUrls = newUrlFilter.filter(urls);
 		
 		verify(urlRepository, times(2)).save(urlCaptor.capture());
-		assertEquals(urlCaptor.getAllValues().get(0).getIdentifier(), "5566");
-		assertEquals(urlCaptor.getAllValues().get(1).getIdentifier(), "7788");
+		assertEquals("5566", urlCaptor.getAllValues().get(0).getIdentifier());
+		assertEquals("7788", urlCaptor.getAllValues().get(1).getIdentifier());
 		
 		assertEquals(2, newUrls.size());
 	}
