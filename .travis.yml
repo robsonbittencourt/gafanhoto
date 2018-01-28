@@ -16,7 +16,7 @@ jdk:
   - oraclejdk8
 
 script:
-  - mvn clean verify sonar:sonar
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar
 
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
