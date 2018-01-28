@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>gafanhoto</name>
-	<description>Web Crawler para baixar urls do fórum de promoções do hardmob</description>
+	<description>Bot para monitoramento de promoções no fórum do Hardmob http://www.hardmob.com.br/promocoes/</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
