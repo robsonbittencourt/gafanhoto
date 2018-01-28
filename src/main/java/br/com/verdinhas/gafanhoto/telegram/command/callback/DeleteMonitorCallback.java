@@ -25,7 +25,7 @@ public class DeleteMonitorCallback implements BotCallback {
 		String callbackData = message.callbackText();
 
 		if (callbackData.startsWith("delete")) {
-			String monitorId = callbackData.substring(callbackData.indexOf("-") + 1, callbackData.length());
+			String monitorId = callbackData.substring(callbackData.indexOf('-') + 1, callbackData.length());
 
 			if (monitorRepository.exists(monitorId)) {
 				monitorRepository.delete(monitorId);

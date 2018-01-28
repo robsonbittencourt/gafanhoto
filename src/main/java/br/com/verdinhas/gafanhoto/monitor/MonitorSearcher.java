@@ -43,8 +43,7 @@ public class MonitorSearcher {
 		}
 
 		return monitors.stream()
-				.filter(m -> isEmpty(m.getOtherKeyWords()))
-				.filter(m -> keyWords.containsAll(m.getOtherKeyWords()))
+				.filter(m -> isEmpty(m.getOtherKeyWords()) || keyWords.containsAll(m.getOtherKeyWords()))
 				.collect(toList());
 	}
 

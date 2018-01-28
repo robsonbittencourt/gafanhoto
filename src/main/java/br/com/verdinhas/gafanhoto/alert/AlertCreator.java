@@ -29,7 +29,7 @@ public class AlertCreator {
 	private void createAlertsToMonitors(Url url, List<Monitor> monitors) {
 		log.info("Criando {} novos alertas", monitors.size());
 		
-		monitors.forEach(m -> alertRepository.save(new Alert(m.getUserId(), m.getChatId(), url.getUrl())));
+		monitors.forEach(m -> alertRepository.save(new Alert(m.getUserId(), m.getChatId(), url.getUrlAddress())));
 	}
 
 }

@@ -20,12 +20,11 @@ public class UrlCrawlerAggregator {
 	public List<Url> retrieveUrlsFromSources() {
 		List<Url> urlsFromSources = new ArrayList<>();
 		
-		getUrlsCrawlers().forEach(c -> {
-			c.retrieveUrlsFromSource().forEach(u -> urlsFromSources.add(new Url(u, c.decompose(u), new Date())));
-		});
-
+		getUrlsCrawlers().forEach(c -> 
+			c.retrieveUrlsFromSource().forEach(u -> urlsFromSources.add(new Url(u, c.decompose(u), c.getIdentifier(u), new Date())))
+		);
+		
 		return urlsFromSources;
-
 	}
 
 	private List<UrlCrawler> getUrlsCrawlers() {

@@ -12,6 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Utils {
+	
+	private Utils() {
+		// Just to hide creation
+	}
 
 	public static String normalizeString(String string) {
 		return stripAccents(string.toLowerCase());
@@ -26,9 +30,8 @@ public class Utils {
 		});
 
 		String withSeparators = sb.toString();
-		String withoutLastSeparator = withSeparators.substring(0, withSeparators.length() - 2);
 
-		return withoutLastSeparator;
+		return withSeparators.substring(0, withSeparators.length() - 3);
 	}
 
 	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
@@ -41,6 +44,7 @@ public class Utils {
 			Thread.sleep(millis);
 		} catch (InterruptedException e) {
 			log.error("Error on thread sleep", e);
+			Thread.currentThread().interrupt();
 		}
 	}
 

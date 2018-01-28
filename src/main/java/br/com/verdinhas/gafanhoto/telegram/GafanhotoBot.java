@@ -77,7 +77,8 @@ public class GafanhotoBot extends TelegramLongPollingBot {
 
 		sendMessage(chatId, message);
 	}
-
+	
+	@Override
 	public <T extends Serializable, Method extends BotApiMethod<T>> T execute(Method method) {
 		try {
 			return super.execute(method);

@@ -9,9 +9,7 @@ import com.vdurmont.emoji.EmojiManager;
 import br.com.verdinhas.gafanhoto.alert.Alert;
 import br.com.verdinhas.gafanhoto.alert.AlertRepository;
 import br.com.verdinhas.gafanhoto.telegram.GafanhotoBot;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Component
 public class SendAlert {
 	
@@ -22,8 +20,7 @@ public class SendAlert {
 	private AlertRepository alertRepository;
 
 	@Async("async-task-executor")
-	public void send(Alert alert, int i) {
-		log.info("Enviando alerta " + i);
+	public void send(Alert alert) {
 		sendMessageBot.sendMessage(alert.getChatId(), buildMessage(alert));
 		alertRepository.delete(alert.id);
 	}

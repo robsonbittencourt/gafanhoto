@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
+import br.com.verdinhas.gafanhoto.util.Utils;
 import lombok.Getter;
 
 @Getter
@@ -26,7 +27,7 @@ public class Monitor {
 		this.userId = userId;
 		this.chatId = chatId;
 		this.mainKeyWord = normalizeString(mainKeyWord);
-		this.otherKeyWords = otherKeyWords.stream().map(k -> normalizeString(k)).collect(toList());
+		this.otherKeyWords = otherKeyWords.stream().map(Utils::normalizeString).collect(toList());
 	}
 
 	@Override

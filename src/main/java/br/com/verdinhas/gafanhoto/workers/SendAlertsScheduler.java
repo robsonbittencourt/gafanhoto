@@ -27,7 +27,7 @@ public class SendAlertsScheduler {
 		log.info("Iniciando envio de alertas. Existem {} a serem enviados.", alerts.size());
 
 		for (int i = 0; (i < alerts.size() && i < 100) ; i++) {
-			sendAlert.send(alerts.get(i), i);
+			sendAlert.send(alerts.get(i));
 		}
 	}
 
