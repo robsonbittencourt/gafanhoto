@@ -26,7 +26,7 @@ public class HardmobPromocoesWebCrawlerTest {
 	public void shouldDecomposeUrlInWords() {
 		List<String> words = hardmobCrawler.decompose("http://www.hardmob.com.br/promocoes/682015-magazine-luiza-xbox-live-gold-de-12-meses-r-99-00-a.html");
 
-		assertEquals(10, words.size());
+		assertEquals(12, words.size());
 		assertEquals("magazine", words.get(0));
 		assertEquals("luiza", words.get(1));
 		assertEquals("xbox", words.get(2));
@@ -35,8 +35,10 @@ public class HardmobPromocoesWebCrawlerTest {
 		assertEquals("de", words.get(5));
 		assertEquals("12", words.get(6));
 		assertEquals("meses", words.get(7));
-		assertEquals("99", words.get(8));
-		assertEquals("00", words.get(9));
+		assertEquals("r", words.get(8));
+		assertEquals("99", words.get(9));
+		assertEquals("00", words.get(10));
+		assertEquals("a", words.get(11));
 	}
 
 	@Test

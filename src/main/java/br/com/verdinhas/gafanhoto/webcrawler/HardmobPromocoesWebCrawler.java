@@ -50,7 +50,6 @@ public class HardmobPromocoesWebCrawler implements UrlCrawler {
 		List<String> wordsWithSeparator = asList(withoutPrefixAndSufix.split("-"));
 
 		return wordsWithSeparator.stream()
-				.filter(w -> w.length() > 1)
 				.collect(toList());
 	}
 
