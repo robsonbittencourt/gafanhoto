@@ -51,4 +51,9 @@ A qualquer momento digite `/help` para que sejam exibidos todos os comandos disp
   <img width="360" height="640" src="media/screenshot_5.jpg">
 </p>
 
+## Docker
+Para subir localmente é possível utilizar docker-compose como mostra o comando abaixo:
+
+`GAFANHOTO_TOKEN=SEU_TOKEN_AQUI docker-compose up -d`
+
 
