@@ -1,6 +1,10 @@
 package br.com.verdinhas.gafanhoto.workers;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import org.junit.Before;
@@ -31,6 +35,8 @@ public class SendAlertTest {
 	@Test
 	public void shouldSendMessageForEachAlertAndAfterDeleteAlert() {
 		Alert alert = new Alert(0, 0L, "www.test.com/1234/car");
+
+		when(sendMessageBot.sendMessage(eq(alert.getChatId()), anyString())).thenReturn(true);;
 		
 		sendAlert.send(alert);
 		

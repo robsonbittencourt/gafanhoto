@@ -21,8 +21,10 @@ public class SendAlert {
 
 	@Async("async-task-executor")
 	public void send(Alert alert) {
-		sendMessageBot.sendMessage(alert.getChatId(), buildMessage(alert));
-		alertRepository.delete(alert.id);
+		boolean sent = sendMessageBot.sendMessage(alert.getChatId(), buildMessage(alert));
+		if (sent) {
+			alertRepository.delete(alert.id);
+		}
 	}
 
 	private String buildMessage(Alert alert) {

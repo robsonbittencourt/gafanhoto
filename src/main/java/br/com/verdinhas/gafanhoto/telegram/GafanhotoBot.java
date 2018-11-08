@@ -62,14 +62,17 @@ public class GafanhotoBot extends TelegramLongPollingBot {
 		return System.getenv("GAFANHOTO_TOKEN");
 	}
 
-	public void sendMessage(Long chatId, String message) {
+	public boolean sendMessage(Long chatId, String message) {
 		SendMessage sendMessage = new SendMessage().setChatId(chatId).setText(message);
 
 		try {
 			execute(sendMessage);
 		} catch (Exception e) {
 			log.error("Erro ao enviar mensagem", e);
+			return false;
 		}
+
+		return true;
 	}
 
 	public void sendMessageWithCallback(Long chatId, String message, String callbackIdentifier) {
