@@ -2,6 +2,6 @@ userAgent: Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070
 
 sources:
   hardmob:
-    url: http://www.hardmob.com.br/promocoes/?pp=30&daysprune=1&sort=dateline&order=desc
+    url: http://www.hardmob.com.br/forums/407-Promocoes?s=&pp=30&daysprune=1&sort=dateline&order=desc
     elements:
       title: title
