@@ -45,7 +45,7 @@ public class HardmobPromocoesWebCrawler implements UrlCrawler {
 
 	@Override
 	public List<String> decompose(String url) {
-		String withoutPrefixAndSufix = url.substring(url.indexOf('-') + 1, url.indexOf(".html"));
+		String withoutPrefixAndSufix = url.substring(url.indexOf('-') + 1, url.indexOf("?s="));
 
 		List<String> wordsWithSeparator = asList(withoutPrefixAndSufix.split("-"));
 
@@ -55,7 +55,7 @@ public class HardmobPromocoesWebCrawler implements UrlCrawler {
 
 	@Override
 	public String getIdentifier(String url) {
-		return url.substring(forumUrl.lastIndexOf('/') + 1, url.indexOf('-'));
+		return url.substring(forumUrl.replace("forums", "threads").lastIndexOf('/') + 1, url.indexOf('-'));
 	}
 
 }

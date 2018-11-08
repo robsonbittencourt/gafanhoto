@@ -18,34 +18,28 @@ public class HardmobPromocoesWebCrawlerTest {
 	@Before
 	public void setUp() {
 		initMocks(this);
-		
-		ReflectionTestUtils.setField(hardmobCrawler, "forumUrl", "http://www.hardmob.com.br/promocoes/?pp=30&daysprune=1&sort=dateline&order=desc");
+		ReflectionTestUtils.setField(hardmobCrawler, "forumUrl", "http://www.hardmob.com.br/forums/407-Promocoes?s=&pp=30&daysprune=1&sort=dateline&order=desc");
 	}
 
 	@Test
 	public void shouldDecomposeUrlInWords() {
-		List<String> words = hardmobCrawler.decompose("http://www.hardmob.com.br/promocoes/682015-magazine-luiza-xbox-live-gold-de-12-meses-r-99-00-a.html");
+		List<String> words = hardmobCrawler.decompose("http://www.hardmob.com.br/threads/702252-Sexta-Feira-Negra-Capsulas-Dolce-Gusto-099-cada?s=74b87259e69c7169e759c19eb86a6a46");
 
-		assertEquals(12, words.size());
-		assertEquals("magazine", words.get(0));
-		assertEquals("luiza", words.get(1));
-		assertEquals("xbox", words.get(2));
-		assertEquals("live", words.get(3));
-		assertEquals("gold", words.get(4));
-		assertEquals("de", words.get(5));
-		assertEquals("12", words.get(6));
-		assertEquals("meses", words.get(7));
-		assertEquals("r", words.get(8));
-		assertEquals("99", words.get(9));
-		assertEquals("00", words.get(10));
-		assertEquals("a", words.get(11));
+		assertEquals(8, words.size());
+		assertEquals("Sexta", words.get(0));
+		assertEquals("Feira", words.get(1));
+		assertEquals("Negra", words.get(2));
+		assertEquals("Capsulas", words.get(3));
+		assertEquals("Dolce", words.get(4));
+		assertEquals("Gusto", words.get(5));
+		assertEquals("099", words.get(6));
+		assertEquals("cada", words.get(7));
 	}
 
 	@Test
 	public void shouldReturnUniqueIdentifierFromUrl() {
-		String identifier = hardmobCrawler.getIdentifier("http://www.hardmob.com.br/promocoes/682015-magazine-luiza-xbox-live-gold-de-12-meses-r-99-00-a.html");
-
-		assertEquals("682015", identifier);
+		String identifier = hardmobCrawler.getIdentifier("http://www.hardmob.com.br/threads/702252-Sexta-Feira-Negra-Capsulas-Dolce-Gusto-099-cada?s=74b87259e69c7169e759c19eb86a6a46");
+		assertEquals("702252", identifier);
 	}
 
 }
