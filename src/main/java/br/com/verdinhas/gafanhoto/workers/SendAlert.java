@@ -1,5 +1,6 @@
 package br.com.verdinhas.gafanhoto.workers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ import br.com.verdinhas.gafanhoto.alert.Alert;
 import br.com.verdinhas.gafanhoto.alert.AlertRepository;
 import br.com.verdinhas.gafanhoto.telegram.GafanhotoBot;
 
+@Slf4j
 @Component
 public class SendAlert {
 	
@@ -23,7 +25,10 @@ public class SendAlert {
 	public void send(Alert alert) {
 		boolean sent = sendMessageBot.sendMessage(alert.getChatId(), buildMessage(alert));
 		if (sent) {
+			log.info("Mensagem enviada. O alerta será apagado.");
 			alertRepository.delete(alert.id);
+		} else {
+			log.info("Mensagem não enviada. A alerta será mantido.");
 		}
 	}
 
