@@ -2,6 +2,8 @@ package br.com.verdinhas.gafanhoto.webcrawler;
 
 import static java.util.Arrays.asList;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +23,12 @@ public class UrlCrawlerAggregator {
 		List<Url> urlsFromSources = new ArrayList<>();
 		
 		getUrlsCrawlers().forEach(c -> 
-			c.retrieveUrlsFromSource().forEach(u -> urlsFromSources.add(new Url(u, c.decompose(u), c.getIdentifier(u), new Date())))
+			c.retrieveUrlsFromSource().forEach(u -> {
+				String address = u.toLowerCase();
+				List<String> words = c.decompose(u);
+				String identifier = c.getIdentifier(u);
+				urlsFromSources.add(new Url(address, words, identifier, LocalDateTime.now()));
+			})
 		);
 		
 		return urlsFromSources;

@@ -3,6 +3,7 @@ package br.com.verdinhas.gafanhoto.fixture;
 import static br.com.verdinhas.gafanhoto.util.RandomUtils.getRandomString;
 import static java.util.Arrays.asList;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +15,7 @@ public class UrlFixture {
 	private String url;
 	private List<String> urlWords;
 	private String identifier;
-	private Date date;
+	private LocalDateTime date;
 
 	public static UrlFixture get() {
 		return new UrlFixture();
@@ -26,7 +27,7 @@ public class UrlFixture {
 		this.url = "www.test.com/" + identifier + "/car";
 		this.urlWords = new ArrayList<>(asList("car"));
 		this.identifier = identifier;
-		this.date = new Date();
+		this.date = LocalDateTime.now();
 		
 		return this;
 	}
@@ -46,7 +47,7 @@ public class UrlFixture {
 		return this;
 	}
 
-	public UrlFixture date(Date date) {
+	public UrlFixture date(LocalDateTime date) {
 		this.date = date;
 		return this;
 	}

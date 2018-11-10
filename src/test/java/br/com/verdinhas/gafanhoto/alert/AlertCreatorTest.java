@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,7 +45,7 @@ public class AlertCreatorTest {
 	public void shouldCreateAnAlertForEachFoundedMonitor() {
 		List<String> urlWords = new ArrayList<>();
 		urlWords.add("test");
-		Url url = new Url("www.test.com", urlWords, "1234",new Date());
+		Url url = new Url("www.test.com", urlWords, "1234", LocalDateTime.now());
 		
 		List<Monitor> monitors = new ArrayList<>();
 		monitors.add(new Monitor(0, 0L, "test", new ArrayList<>()));

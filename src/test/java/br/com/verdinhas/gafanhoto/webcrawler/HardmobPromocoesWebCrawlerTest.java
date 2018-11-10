@@ -23,23 +23,22 @@ public class HardmobPromocoesWebCrawlerTest {
 
 	@Test
 	public void shouldDecomposeUrlInWords() {
-		List<String> words = hardmobCrawler.decompose("http://www.hardmob.com.br/threads/702252-Sexta-Feira-Negra-Capsulas-Dolce-Gusto-099-cada?s=74b87259e69c7169e759c19eb86a6a46");
+		List<String> words = hardmobCrawler.decompose("http://www.hardmob.com.br/threads/702432-Submarino-Game-Detroit-Become-Human-PS4-R99?s=519e805efac23ba7042f8c512d7b7365");
 
-		assertEquals(8, words.size());
-		assertEquals("Sexta", words.get(0));
-		assertEquals("Feira", words.get(1));
-		assertEquals("Negra", words.get(2));
-		assertEquals("Capsulas", words.get(3));
-		assertEquals("Dolce", words.get(4));
-		assertEquals("Gusto", words.get(5));
-		assertEquals("099", words.get(6));
-		assertEquals("cada", words.get(7));
+		assertEquals(7, words.size());
+		assertEquals("Submarino", words.get(0));
+		assertEquals("Game", words.get(1));
+		assertEquals("Detroit", words.get(2));
+		assertEquals("Become", words.get(3));
+		assertEquals("Human", words.get(4));
+		assertEquals("PS4", words.get(5));
+		assertEquals("R99", words.get(6));
 	}
 
 	@Test
 	public void shouldReturnUniqueIdentifierFromUrl() {
-		String identifier = hardmobCrawler.getIdentifier("http://www.hardmob.com.br/threads/702252-Sexta-Feira-Negra-Capsulas-Dolce-Gusto-099-cada?s=74b87259e69c7169e759c19eb86a6a46");
-		assertEquals("702252", identifier);
+		String identifier = hardmobCrawler.getIdentifier("http://www.hardmob.com.br/threads/702432-Submarino-Game-Detroit-Become-Human-PS4-R99?s=519e805efac23ba7042f8c512d7b7365");
+		assertEquals("702432", identifier);
 	}
 
 }

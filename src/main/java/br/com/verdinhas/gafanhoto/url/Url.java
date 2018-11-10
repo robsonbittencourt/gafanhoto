@@ -1,5 +1,6 @@
 package br.com.verdinhas.gafanhoto.url;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -21,9 +22,9 @@ public class Url {
 
 	private String identifier;
 
-	private Date date;
+	private LocalDateTime date;
 
-	public Url(String urlAddress, List<String> urlWords, String identifier, Date date) {
+	public Url(String urlAddress, List<String> urlWords, String identifier, LocalDateTime date) {
 		this.urlAddress = urlAddress;
 		this.urlWords = urlWords;
 		this.identifier = identifier;
