@@ -30,11 +30,11 @@ public class DeleteMonitorCallback implements BotCallback {
 			if (monitorRepository.exists(monitorId)) {
 				monitorRepository.delete(monitorId);
 				
-				bot.sendMessage(message.chatId(), "Monitor apagado. Você não vai mais receber avisos destas palavras-chave.");
+				bot.sendMessageToUser(message.chatId(), "Monitor apagado. Você não vai mais receber avisos destas palavras-chave.");
 
 				log.info("Monitor apagado");
 			} else {
-				bot.sendMessage(message.chatId(), "Monitor não encontrado.");
+				bot.sendMessageToUser(message.chatId(), "Monitor não encontrado.");
 			}
 		}
 	}

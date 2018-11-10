@@ -39,7 +39,7 @@ public class ListMonitorsCommand implements BotCommand {
 			return;
 		}
 
-		bot.sendMessage(message.chatId(), buildMonitorList(userMonitors));
+		bot.sendMessageToUser(message.chatId(), buildMonitorList(userMonitors));
 	}
 
 	private String buildMonitorList(List<Monitor> userMonitors) {

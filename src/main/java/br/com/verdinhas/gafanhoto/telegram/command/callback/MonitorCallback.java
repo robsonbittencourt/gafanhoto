@@ -41,7 +41,7 @@ public class MonitorCallback implements BotCallback {
 
 		log.info("Monitor criado. Palavras chave: {}", message.text());
 
-		bot.sendMessage(message.chatId(), buildMonitorarFeedbackMessage(message));
+		bot.sendMessageToUser(message.chatId(), buildMonitorarFeedbackMessage(message));
 	}
 
 	private boolean isInvalidKeyWordsQuantity(ReceivedMessage message, GafanhotoBot bot) {

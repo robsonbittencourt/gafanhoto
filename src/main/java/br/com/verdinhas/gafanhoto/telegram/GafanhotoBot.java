@@ -1,9 +1,8 @@
 package br.com.verdinhas.gafanhoto.telegram;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-
+import br.com.verdinhas.gafanhoto.telegram.command.Commands;
+import br.com.verdinhas.gafanhoto.telegram.command.callback.Callbacks;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.api.methods.BotApiMethod;
@@ -12,9 +11,11 @@ import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
-import br.com.verdinhas.gafanhoto.telegram.command.Commands;
-import br.com.verdinhas.gafanhoto.telegram.command.callback.Callbacks;
-import lombok.extern.slf4j.Slf4j;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+import static br.com.verdinhas.gafanhoto.util.Utils.sleep;
 
 @Slf4j
 @Component
@@ -62,33 +63,41 @@ public class GafanhotoBot extends TelegramLongPollingBot {
 		return System.getenv("GAFANHOTO_TOKEN");
 	}
 
-	public boolean sendMessage(Long chatId, String message) {
-		SendMessage sendMessage = new SendMessage().setChatId(chatId).setText(message);
+    public boolean sendMessageToUser(Long chatId, String message) {
+        SendMessage sendMessage = new SendMessage(chatId, message);
 
-		try {
-			execute(sendMessage);
-		} catch (Exception e) {
-			log.error("Erro ao enviar mensagem", e);
-			return false;
-		}
+        return sendMessageToUser(sendMessage);
+    }
 
-		return true;
+    public boolean sendMessageToUser(SendMessage sendMessage) {
+        int count = 0;
+        int maxTries = 10;
+
+        while(count != maxTries) {
+            try {
+                execute(sendMessage);
+                return true;
+            } catch (Exception e) {
+                count++;
+                if (count == maxTries) {
+                    log.error("Erro ao enviar mensagem", e);
+                }
+                sleep(500);
+            }
+        }
+
+		return false;
 	}
 
 	public void sendMessageWithCallback(Long chatId, String message, String callbackIdentifier) {
 		usersWaitingCallback.put(chatId, callbackIdentifier);
 
-		sendMessage(chatId, message);
+		sendMessageToUser(chatId, message);
 	}
 	
 	@Override
-	public <T extends Serializable, Method extends BotApiMethod<T>> T execute(Method method) {
-		try {
-			return super.execute(method);
-		} catch (TelegramApiException e) {
-			log.error("Erro ao enviar mensagem", e);
-			return null;
-		}
+	public <T extends Serializable, Method extends BotApiMethod<T>> T execute(Method method) throws TelegramApiException {
+		return super.execute(method);
 	}
 
 }

@@ -33,7 +33,7 @@ public class StartCommand implements BotCommand {
 	private void sendConversation(Long chatId, List<String> messages, GafanhotoBot bot) {
 		Runnable task = () -> {
 			messages.forEach(m -> {
-				bot.sendMessage(chatId, m);
+				bot.sendMessageToUser(chatId, m);
 				sleep(3000);
 			});
 

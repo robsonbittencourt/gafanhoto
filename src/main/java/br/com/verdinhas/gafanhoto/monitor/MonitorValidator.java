@@ -13,6 +13,7 @@ import com.vdurmont.emoji.EmojiManager;
 import br.com.verdinhas.gafanhoto.telegram.GafanhotoBot;
 import br.com.verdinhas.gafanhoto.telegram.MessageWithButtons;
 import br.com.verdinhas.gafanhoto.telegram.ReceivedMessage;
+import org.telegram.telegrambots.api.methods.send.SendMessage;
 
 @Component
 public class MonitorValidator {
@@ -29,7 +30,7 @@ public class MonitorValidator {
 			MessageWithButtons messageWithButtons = new MessageWithButtons(bot, message.chatId(), buildMessage());
 			
 			messageWithButtons.addButton("Apagar monitores", "/apagar");
-			
+
 			messageWithButtons.send();
 
 			return true;
@@ -51,7 +52,7 @@ public class MonitorValidator {
 
 	public boolean thereAreNoMonitors(GafanhotoBot bot, ReceivedMessage message, List<Monitor> userMonitors) {
 		if (isEmpty(userMonitors)) {
-			bot.sendMessage(message.chatId(), "Você ainda não possui monitores.");
+			bot.sendMessageToUser(message.chatId(), "Você ainda não possui monitores.");
 			return true;
 		}
 

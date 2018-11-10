@@ -36,12 +36,12 @@ public class SendAlertTest {
 	public void shouldSendMessageForEachAlertAndAfterDeleteAlert() {
 		Alert alert = new Alert(0, 0L, "www.test.com/1234/car");
 
-		when(sendMessageBot.sendMessage(eq(alert.getChatId()), anyString())).thenReturn(true);;
+		when(sendMessageBot.sendMessageToUser(eq(alert.getChatId()), anyString())).thenReturn(true);;
 		
 		sendAlert.send(alert);
 		
 		String message = "Nova oferta encontrada 🤑\n" + alert.getUrl();
-		verify(sendMessageBot).sendMessage(0L, message);
+		verify(sendMessageBot).sendMessageToUser(0L, message);
 		
 		verify(alertRepository).delete(alert.id);
 	}

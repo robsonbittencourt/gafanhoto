@@ -36,10 +36,10 @@ public class MessageWithButtons {
 	}
 
 	public void send() {
-		SendMessage sendMessage = new SendMessage().setChatId(chatId).setText(messageText);
+		SendMessage sendMessage = new SendMessage(chatId, messageText);
 		sendMessage.setReplyMarkup(markupInline);
-		
-		bot.execute(sendMessage);
+
+		bot.sendMessageToUser(sendMessage);
 	}
 
 }

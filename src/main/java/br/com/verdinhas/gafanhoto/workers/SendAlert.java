@@ -23,7 +23,7 @@ public class SendAlert {
 
 	@Async("async-task-executor")
 	public void send(Alert alert) {
-		boolean sent = sendMessageBot.sendMessage(alert.getChatId(), buildMessage(alert));
+		boolean sent = sendMessageBot.sendMessageToUser(alert.getChatId(), buildMessage(alert));
 		if (sent) {
 			log.info("Mensagem enviada. O alerta será apagado.");
 			alertRepository.delete(alert.id);
