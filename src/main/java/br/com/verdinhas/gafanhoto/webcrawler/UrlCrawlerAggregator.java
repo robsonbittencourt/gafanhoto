@@ -25,8 +25,8 @@ public class UrlCrawlerAggregator {
 		getUrlsCrawlers().forEach(c -> 
 			c.retrieveUrlsFromSource().forEach(u -> {
 				String address = u.toLowerCase();
-				List<String> words = c.decompose(u);
-				String identifier = c.getIdentifier(u);
+				List<String> words = c.decompose(address);
+				String identifier = c.getIdentifier(address);
 				urlsFromSources.add(new Url(address, words, identifier, LocalDateTime.now()));
 			})
 		);
