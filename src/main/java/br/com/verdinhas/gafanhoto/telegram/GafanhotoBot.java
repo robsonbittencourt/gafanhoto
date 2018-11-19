@@ -10,17 +10,17 @@ import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
+import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import static br.com.verdinhas.gafanhoto.util.Utils.sleep;
-
 @Slf4j
 @Component
 public class GafanhotoBot extends TelegramLongPollingBot {
 
+	public static final int FORBIDDEN = 403;
 	@Autowired
 	private Callbacks callbacks;
 
@@ -70,21 +70,17 @@ public class GafanhotoBot extends TelegramLongPollingBot {
     }
 
     public boolean sendMessageToUser(SendMessage sendMessage) {
-        int count = 0;
-        int maxTries = 10;
-
-        while(count != maxTries) {
-            try {
-                execute(sendMessage);
-                return true;
-            } catch (Exception e) {
-                count++;
-                if (count == maxTries) {
-                    log.error("Erro ao enviar mensagem", e);
-                }
-                sleep(500);
-            }
-        }
+		try {
+			execute(sendMessage);
+			return true;
+		} catch (TelegramApiException e) {
+			if (e instanceof TelegramApiRequestException &&
+					((TelegramApiRequestException)e).getErrorCode() == FORBIDDEN) {
+				return true;
+			} else {
+				log.error("Erro ao enviar mensagem", e);
+			}
+		}
 
 		return false;
 	}

@@ -34,42 +34,4 @@ public class GafanhotoBotTest {
         assertTrue(messageSent);
     }
 
-    @Test
-    public void shouldSendMessageWhenOccurNineErrorsAndASuccessOnTheTenthAttempt() throws TelegramApiException {
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doReturn(null).when(gafanhotoBot).execute(any(SendMessage.class));
-
-        boolean messageSent = gafanhotoBot.sendMessageToUser(1L, "Hello");
-
-        verify(gafanhotoBot, times(10)).execute(any(SendMessage.class));
-        assertTrue(messageSent);
-    }
-
-    @Test
-    public void shouldNotSendMessageWhenOccurTenErrors() throws TelegramApiException {
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).
-        doThrow(TelegramApiException.class).when(gafanhotoBot).execute(any(SendMessage.class));
-
-        boolean messageSent = gafanhotoBot.sendMessageToUser(1L, "Hello");
-
-        verify(gafanhotoBot, times(10)).execute(any(SendMessage.class));
-        assertFalse(messageSent);
-    }
-
 }
