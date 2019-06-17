@@ -1,24 +1,21 @@
 package br.com.verdinhas.gafanhoto.monitor;
 
-import static org.apache.commons.collections4.CollectionUtils.isEmpty;
-import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import com.vdurmont.emoji.EmojiManager;
-
 import br.com.verdinhas.gafanhoto.telegram.GafanhotoBot;
 import br.com.verdinhas.gafanhoto.telegram.MessageWithButtons;
 import br.com.verdinhas.gafanhoto.telegram.ReceivedMessage;
-import org.telegram.telegrambots.api.methods.send.SendMessage;
+import com.vdurmont.emoji.EmojiManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+import static org.apache.commons.collections4.CollectionUtils.isEmpty;
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 @Component
 public class MonitorValidator {
 
-	private static final int MAX_MONITORS_BY_USER = 10;
+	private static final int MAX_MONITORS_BY_USER = 30;
 
 	@Autowired
 	private MonitorRepository monitorRepository;
