@@ -8,7 +8,7 @@
 </p>
 
 ## Objetivo
-O Gafanhoto tem por objetivo buscar e armazenar as urls dos tópicos, postados no fórum de promoções do Hardmob. Além disso ele possibilita através do chat do Telegram,   que pessoas cadastrem monitores com palavras-chave, para serem avisadas quando surgirem promoções.
+O Gafanhoto tem por objetivo buscar e armazenar as urls dos tópicos, postados no fórum de [promoções do Hardmob](https://www.hardmob.com.br/forums/407-Promocoes). Além disso ele possibilita através do chat do Telegram,   que pessoas cadastrem monitores com palavras-chave, para serem avisadas quando surgirem promoções.
 
 <p align="center">
   <img width="360" height="640" src="media/screenshot_0.jpg">
