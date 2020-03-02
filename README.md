@@ -54,6 +54,6 @@ A qualquer momento digite `/help` para que sejam exibidos todos os comandos disp
 ## Docker
 Para subir localmente é possível utilizar docker-compose como mostra o comando abaixo:
 
-`GAFANHOTO_TOKEN=SEU_TOKEN_AQUI docker-compose up -d`
+`GAFANHOTO_TOKEN=SEU_TOKEN_AQUI SPRING_DATA_MONGODB_URI=SUA_CONEXAO_COM_MONGO_DB_AQUI docker-compose up -d`
 
 

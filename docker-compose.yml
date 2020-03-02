@@ -4,24 +4,7 @@ services:
 
   gafanhoto:
     image: robsonbittencourt/gafanhoto
-    links:
-      - mongodb
     environment:
-      SPRING_DATA_MONGODB_URI: mongodb://mongodb/userregistration
+      SPRING_DATA_MONGODB_URI:
       TELEGRAM_USER_ID:
       GAFANHOTO_TOKEN:
-
-  mongodb:
-    image: mongo:3.6.1
-    volumes:
-      - ~/gafanhoto-data:/data/db
-
-  mongo-backup:
-    image: "istepanov/mongodump:3.4"
-    volumes:
-      - ~/gafanhoto-data-backup:/backup
-    environment:
-      CRON_SCHEDULE: '0 */12 * * *'
-      MONGO_HOST: "mongodb"
-    depends_on:
-      - mongodb
