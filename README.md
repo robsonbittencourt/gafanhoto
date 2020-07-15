@@ -3,6 +3,8 @@
 
 > Bot para monitoramento de promoções no fórum do Hardmob
 
+Bolinha de meu deus
+
 <p align="center">
   <img width="460" height="300" src="media/gafanhoto.jpg">
 </p>
