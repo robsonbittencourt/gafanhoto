@@ -5,3 +5,5 @@ sources:
     url: http://www.hardmob.com.br/forums/407-Promocoes?s=&pp=30&daysprune=1&sort=dateline&order=desc
     elements:
       title: title
+
+logging.level.org.mongodb.driver: ERROR
