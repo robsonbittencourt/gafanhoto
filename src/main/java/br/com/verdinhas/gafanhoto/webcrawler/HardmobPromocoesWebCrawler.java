@@ -45,12 +45,15 @@ public class HardmobPromocoesWebCrawler implements UrlCrawler {
 
 	@Override
 	public List<String> decompose(String url) {
-		String withoutPrefixAndSufix = url.substring(url.indexOf('-') + 1, url.indexOf("?s="));
+		String withoutPrefixAndSuffix;
 
-		List<String> wordsWithSeparator = asList(withoutPrefixAndSufix.split("-"));
+		if (url.contains("?s=")) {
+			withoutPrefixAndSuffix = url.substring(url.indexOf('-') + 1, url.indexOf("?s="));
+		} else {
+			withoutPrefixAndSuffix = url.substring(url.indexOf('-') + 1);
+		}
 
-		return wordsWithSeparator.stream()
-				.collect(toList());
+		return asList(withoutPrefixAndSuffix.split("-"));
 	}
 
 	@Override

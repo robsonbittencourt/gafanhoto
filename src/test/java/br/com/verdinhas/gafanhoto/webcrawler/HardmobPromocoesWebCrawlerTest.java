@@ -41,4 +41,20 @@ public class HardmobPromocoesWebCrawlerTest {
 		assertEquals("702432", identifier);
 	}
 
+	@Test
+	public void shouldDecomposeWhenUrlNotHaveIdentifier() {
+		List<String> words = hardmobCrawler.decompose("https://www.hardmob.com.br:443/threads/449293-twitter-siga-a-hardmob-promocoes-status-ok");
+
+		assertEquals(7, words.size());
+		assertEquals("twitter", words.get(0));
+		assertEquals("siga", words.get(1));
+		assertEquals("a", words.get(2));
+		assertEquals("hardmob", words.get(3));
+		assertEquals("promocoes", words.get(4));
+		assertEquals("status", words.get(5));
+		assertEquals("ok", words.get(6));
+	}
+
+
+
 }
