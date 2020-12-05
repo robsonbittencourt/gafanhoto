@@ -1,4 +1,4 @@
-FROM fabric8/java-centos-openjdk11-jre:1.6
+FROM fabric8/java-centos-openjdk11-jre:1.8
 
 ARG version
 
